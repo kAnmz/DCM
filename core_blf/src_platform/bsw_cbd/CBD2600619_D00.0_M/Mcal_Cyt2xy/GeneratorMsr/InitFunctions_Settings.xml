@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ExtModuleInitialization xmlns="InitService" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="InitService .\InitService.xsd">
+<!--Adc_Init-->
+	<InitModule>
+		<ModuleRef>/TS_T40D13M1I0R0/Adc</ModuleRef> 
+		<ModuleInitFunction>
+ 			<InitFunctionName>Adc_Init</InitFunctionName> 
+ 			<InitFunctionHeader>Adc.h</InitFunctionHeader> 
+  			<InitPhase>INIT_ONE_LATE</InitPhase>
+			<InitFunctionData>
+				<ConfigVariant>VARIANT_POST_BUILD_LOADABLE</ConfigVariant>
+				<ConfigPtrData>
+					<ConfigPtrName>&amp;Adc_Config[0]</ConfigPtrName>
+					<ConfigPtrClass>ADC_APPL_CONST</ConfigPtrClass>
+					<ConfigPtrType>Adc_ConfigType</ConfigPtrType>
+					<MultipleConfigContainerDefRefString>/TS_T40D13M1I0R0/Adc/AdcConfigSet</MultipleConfigContainerDefRefString>
+				</ConfigPtrData>
+			</InitFunctionData>
+  		</ModuleInitFunction>
+  	</InitModule>
+<!--End of Adc_Init-->
+
+<!--Dio_Init-->
+<InitModule>
+  <ModuleRef>/TS_T40D13M1I0R0/Dio</ModuleRef> 
+<ModuleInitFunction>
+  <InitFunctionName>Dio_Init</InitFunctionName> 
+  <InitFunctionHeader>Dio.h</InitFunctionHeader> 
+  <InitPhase>NO_INIT</InitPhase> 
+<InitFunctionData>
+  </InitFunctionData>
+  </ModuleInitFunction>
+</InitModule>
+<!--End of Dio_Init-->
+
+
+<!--Fls_Init-->
+	<InitModule>
+  		<ModuleRef>/TS_T40D13M1I0R0/Fls</ModuleRef> 
+		<ModuleInitFunction>
+  			<InitFunctionName>Fls_Init</InitFunctionName> 
+  			<InitFunctionHeader>Fls.h</InitFunctionHeader> 
+  			<InitPhase>INIT_ONE_LATE</InitPhase> 
+			<InitFunctionData>
+				<ConfigVariant>VARIANT_PRE_COMPILE</ConfigVariant>
+				<ConfigPtrData>
+					<ConfigPtrName>NULL_PTR</ConfigPtrName>
+					<ConfigPtrClass>FLS_APPL_CONST</ConfigPtrClass> 
+					<ConfigPtrType>Fls_ConfigType</ConfigPtrType>
+				</ConfigPtrData>
+			</InitFunctionData>
+			<InitFunctionData>
+				<ConfigVariant>VARIANT_POST_BUILD_LOADABLE</ConfigVariant>
+				<ConfigPtrData>
+					<ConfigPtrName>&amp;Fls_Config_0</ConfigPtrName>
+					<ConfigPtrClass>FLS_APPL_CONST</ConfigPtrClass>
+					<ConfigPtrType>Fls_ConfigType</ConfigPtrType>
+					<MultipleConfigContainerDefRefString>/TS_T40D13M1I0R0/Fls/FlsConfigSet</MultipleConfigContainerDefRefString>
+				</ConfigPtrData>				
+			</InitFunctionData>			
+  		</ModuleInitFunction>
+  	</InitModule>  
+<!--End of Fls_Init-->
+
+<!--Gpt_Init-->	
+	<InitModule>
+  		<ModuleRef>/TS_T40D13M1I0R0/Gpt</ModuleRef> 
+		<ModuleInitFunction>
+  			<InitFunctionName>Gpt_Init</InitFunctionName> 
+  			<InitFunctionHeader>Gpt.h</InitFunctionHeader> 
+  			<InitPhase>INIT_ONE_LATE</InitPhase> 
+			<InitFunctionData>
+				<ConfigVariant>VARIANT_POST_BUILD_LOADABLE</ConfigVariant>
+				<ConfigPtrData>
+					<ConfigPtrName>&amp;Gpt_Config[0]</ConfigPtrName>
+					<ConfigPtrClass>GPT_CONST</ConfigPtrClass>
+					<ConfigPtrType>Gpt_ConfigType</ConfigPtrType>
+					<MultipleConfigContainerDefRefString>/TS_T40D13M1I0R0/Gpt/GptChannelConfigSet</MultipleConfigContainerDefRefString>
+				</ConfigPtrData>				
+			</InitFunctionData>		
+  		</ModuleInitFunction>
+  	</InitModule>
+<!--End of Gpt_Init-->
+
+<!--Icu_Init-->
+	<InitModule>
+  		<ModuleRef>/TS_T40D13M1I0R0/Icu</ModuleRef> 
+		<ModuleInitFunction>
+  			<InitFunctionName>Icu_Init</InitFunctionName> 
+  			<InitFunctionHeader>Icu.h</InitFunctionHeader> 
+  			<InitPhase>INIT_ONE_LATE</InitPhase> 
+			<InitFunctionData>
+				<ConfigVariant>VARIANT_POST_BUILD_LOADABLE</ConfigVariant>
+				<ConfigPtrData>
+					<ConfigPtrName>&amp;Icu_Config[0]</ConfigPtrName>
+					<ConfigPtrClass>ICU_APPL_CONST</ConfigPtrClass>
+					<ConfigPtrType>Icu_ConfigType</ConfigPtrType>
+					<MultipleConfigContainerDefRefString>/TS_T40D13M1I0R0/Icu/IcuConfigSet</MultipleConfigContainerDefRefString>
+				</ConfigPtrData>				
+			</InitFunctionData>		
+  		</ModuleInitFunction>
+  	</InitModule>  
+<!--End of Icu_Init-->
+
+<!--Mcu_Init-->
+	<InitModule>
+  		<ModuleRef>/TS_T40D13M1I0R0/Mcu</ModuleRef> 
+		<ModuleInitFunction>
+  			<InitFunctionName>Mcu_Init</InitFunctionName>
+			  <InitFunctionCall>Mcu_InitClock(0);while (MCU_PLL_LOCKED != Mcu_GetPllStatus());Mcu_DistributePllClock();</InitFunctionCall>
+  			<InitFunctionHeader>Mcu.h</InitFunctionHeader> 
+  			<InitPhase>INIT_ONE_EARLY</InitPhase> 
+			<InitFunctionData>
+				<ConfigVariant>VARIANT_POST_BUILD_LOADABLE</ConfigVariant>
+				<ConfigPtrData>
+					<ConfigPtrName>&amp;Mcu_Config[0]</ConfigPtrName>
+					<ConfigPtrClass>MCU_APPL_CONST</ConfigPtrClass>
+					<ConfigPtrType>Mcu_ConfigType</ConfigPtrType>
+					<MultipleConfigContainerDefRefString>/TS_T40D13M1I0R0/Mcu/McuModuleConfiguration</MultipleConfigContainerDefRefString>
+				</ConfigPtrData>				
+			</InitFunctionData>		
+  		</ModuleInitFunction>
+  	</InitModule>
+<!--End of Mcu_Init-->
+
+<!--Ocu_Init-->
+	<InitModule>
+  		<ModuleRef>/TS_T40D13M1I0R0/Ocu</ModuleRef> 
+		<ModuleInitFunction>
+  			<InitFunctionName>Ocu_Init</InitFunctionName> 
+  			<InitFunctionHeader>Ocu.h</InitFunctionHeader> 
+  			<InitPhase>INIT_ONE_LATE</InitPhase> 
+			<InitFunctionData>
+				<ConfigVariant>VARIANT_POST_BUILD_LOADABLE</ConfigVariant>
+				<ConfigPtrData>
+					<ConfigPtrName>&amp;Ocu_Config[0]</ConfigPtrName>
+					<ConfigPtrClass>OCU_APPL_CONST</ConfigPtrClass>
+					<ConfigPtrType>Ocu_ConfigType</ConfigPtrType>
+					<MultipleConfigContainerDefRefString>/TS_T40D13M1I0R0/Ocu/OcuConfigSet</MultipleConfigContainerDefRefString>
+				</ConfigPtrData>				
+			</InitFunctionData>		
+  		</ModuleInitFunction>
+  	</InitModule>
+<!--End of Ocu_Init-->
+
+<!--Port_Init-->
+	<InitModule>
+  		<ModuleRef>/TS_T40D13M1I0R0/Port</ModuleRef> 
+		<ModuleInitFunction>
+  			<InitFunctionName>Port_Init</InitFunctionName> 
+  			<InitFunctionHeader>Port.h</InitFunctionHeader> 
+  			<InitPhase>INIT_ONE</InitPhase> 
+			<InitFunctionData>
+				<ConfigVariant>VARIANT_PRE_COMPILE</ConfigVariant>
+				<ConfigPtrData>
+					<ConfigPtrName>NULL_PTR</ConfigPtrName>
+					<ConfigPtrClass>PORT_APPL_CONST</ConfigPtrClass> 
+					<ConfigPtrType>Port_ConfigType</ConfigPtrType>
+				</ConfigPtrData>
+			</InitFunctionData>
+			<InitFunctionData>
+				<ConfigVariant>VARIANT_POST_BUILD_LOADABLE</ConfigVariant>
+				<ConfigPtrData>
+					<ConfigPtrName>&amp;Port_Config[0]</ConfigPtrName>
+					<ConfigPtrClass>PORT_APPL_CONST</ConfigPtrClass>
+					<ConfigPtrType>Port_ConfigType</ConfigPtrType>
+					<MultipleConfigContainerDefRefString>/TS_T40D13M1I0R0/Port/PortConfigSet</MultipleConfigContainerDefRefString>
+				</ConfigPtrData>				
+			</InitFunctionData>	
+ 		</ModuleInitFunction>
+	</InitModule>
+<!--End of Port_Init-->
+
+<!--Pwm_Init-->
+	<InitModule>
+  		<ModuleRef>/TS_T40D13M1I0R0/Pwm</ModuleRef> 
+		<ModuleInitFunction>
+			<InitFunctionName>Pwm_Init</InitFunctionName> 
+  			<InitFunctionHeader>Pwm.h</InitFunctionHeader> 
+  			<InitPhase>INIT_ONE_LATE</InitPhase> 
+			<InitFunctionData>
+				<ConfigVariant>VARIANT_POST_BUILD_LOADABLE</ConfigVariant>
+				<ConfigPtrData>
+					<ConfigPtrName>&amp;Pwm_Config[0]</ConfigPtrName>
+					<ConfigPtrClass>PWM_APPL_CONST</ConfigPtrClass>
+					<ConfigPtrType>Pwm_ConfigType</ConfigPtrType>
+					<MultipleConfigContainerDefRefString>/TS_T40D13M1I0R0/Pwm/PwmChannelConfigSet</MultipleConfigContainerDefRefString>
+				</ConfigPtrData>				
+			</InitFunctionData>			
+ 	 	</ModuleInitFunction>
+  	</InitModule>
+<!--End of Pwm_Init-->
+
+<!--Resource_Init-->
+<InitModule>
+  <ModuleRef>/TS_T40D13M1I0R0/Resource</ModuleRef> 
+<ModuleInitFunction>
+  <InitFunctionName>Resource_Init</InitFunctionName> 
+  <InitFunctionHeader>Resource.h</InitFunctionHeader> 
+  <InitPhase>NO_INIT</InitPhase> 
+<InitFunctionData>
+  </InitFunctionData>
+  </ModuleInitFunction>
+</InitModule>
+<!--End of Resource_Init-->
+
+<!--Spi_Init-->
+	<InitModule>
+  		<ModuleRef>/TS_T40D13M1I0R0/Spi</ModuleRef> 
+		<ModuleInitFunction>
+  			<InitFunctionName>Spi_Init</InitFunctionName> 
+  			<InitFunctionHeader>Spi.h</InitFunctionHeader> 
+  			<InitPhase>INIT_ONE_LATE</InitPhase> 
+			<InitFunctionData>
+				<ConfigVariant>VARIANT_PRE_COMPILE</ConfigVariant>
+				<ConfigPtrData>
+					<ConfigPtrName>NULL_PTR</ConfigPtrName>
+					<ConfigPtrClass>AUTOMATIC</ConfigPtrClass> 
+					<ConfigPtrType>Spi_ConfigType</ConfigPtrType>
+				</ConfigPtrData>
+			</InitFunctionData>
+			<InitFunctionData>
+				<ConfigVariant>VARIANT_POST_BUILD_LOADABLE</ConfigVariant>
+				<ConfigPtrData>
+					<ConfigPtrName>&amp;Spi_Config[0]</ConfigPtrName>
+					<ConfigPtrClass>AUTOMATIC</ConfigPtrClass>
+					<ConfigPtrType>Spi_ConfigType</ConfigPtrType>
+					<MultipleConfigContainerDefRefString>/TS_T40D13M1I0R0/Spi/SpiDriver</MultipleConfigContainerDefRefString>
+				</ConfigPtrData>				
+			</InitFunctionData>			
+  		</ModuleInitFunction>
+  	</InitModule>
+<!--End of Spi_Init-->
+
+<!--Wdg_Init-->
+	<InitModule>
+  		<ModuleRef>/TS_T40D13M1I0R0/Wdg</ModuleRef> 
+		<ModuleInitFunction>
+  			<InitFunctionName>Wdg_Init</InitFunctionName> 
+  			<InitFunctionHeader>Wdg.h</InitFunctionHeader> 
+  			<InitPhase>INIT_ONE_LATE</InitPhase>
+			<InitFunctionData>
+				<ConfigVariant>VARIANT_POST_BUILD_LOADABLE</ConfigVariant>
+				<ConfigPtrData>
+					<ConfigPtrName>&amp;Wdg_Config[0]</ConfigPtrName>
+					<ConfigPtrClass>WDG_APPL_CONST</ConfigPtrClass>
+					<ConfigPtrType>Wdg_66_IA_ConfigType</ConfigPtrType>
+					<MultipleConfigContainerDefRefString>/TS_T40D13M1I0R0/Wdg/WdgSettingsConfig</MultipleConfigContainerDefRefString>
+				</ConfigPtrData>				
+			</InitFunctionData>		
+  		</ModuleInitFunction>
+  	</InitModule>
+<!--End of Wdg_Init-->
+</ExtModuleInitialization>

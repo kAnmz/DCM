@@ -1,0 +1,6 @@
+###############################################################################
+# Makefile.SBCM.part.defines
+# Source - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -#
+SRC_DIR += $(SWC_DIR)/SBCM/Sources
+# Header - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -#
+INCLUDES += $(addprefix -I, $(SWC_DIR)/SBCM/PublicInt)

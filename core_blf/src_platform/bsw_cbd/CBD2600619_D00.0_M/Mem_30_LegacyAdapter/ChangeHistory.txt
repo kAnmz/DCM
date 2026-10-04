@@ -1,0 +1,69 @@
+/**********************************************************************************************************************
+ *  REVISION HISTORY
+ *
+ *  This file contains the revision history of the component implementation and all related artifacts.
+ *  The revision history covers all released version of the component. If you have received a development version of
+ *  this component, the changes made in the development version are not referenced herein.
+ *
+ *  Legend of Columns:
+ *
+ *    I - Implementation
+ *    G - Generator
+ *    D - Documentation & Technical Reference
+ *    T - Test Implementation
+ *    S - Specification
+ *    B - Build-Artifacts
+ *
+ *  Legend of Cells:
+ *
+ *    X - Artifact is affected by the change.
+ *    - - Artifact is not affected by the change.
+ *
+ *  -------------------------------------------------------------------------------------------------------------------
+ *  Version              Date           Author          I G D T S B       Change Id           Description
+ *  -------------------------------------------------------------------------------------------------------------------
+ *  main-1               2024-12-20     smacht          X X X X X X       MEMSLP-10726        Create Git Repository
+ *  main-1               2025-01-22     fbockaj         X X X X X X       MEMSLP-10831        Integrate template into environment
+ *  main-1               2025-02-04     fbockaj         - X - X X -       MEMSLP-10833        Description and Generated files
+ *  main-1               2025-02-07     vircnt          X X - X X -       MEMSLP-10837        Implement functions with direct mapping and setup testsuite
+ *  main-1               2025-02-13     vircnt          X X - X X -       MEMSLP-10839        Introduce HwSpecificService and PropagateError services
+ *  main-1               2025-02-24     vircnt          - - X - - -       MEMSLP-10845        Create technical reference
+ *  main-1               2025-02-25     fbockaj         - X - X - -       MEMSLP-10835        Validation
+ *  main-1               2025-02-28     fbockaj         X X - X X -       MEMSLP-10841        Component Testing
+ *  main-2               2025-03-07     vircnt          - X - X - -       ESCAN00119541       Generator throws exception java.lang.IllegalStateException: The key: vMem of InstanceIdMapping cannot be found in 'vMemDriverMapping'
+ *  main-2               2025-03-07     vircnt          X X - X - -       ESCAN00119549       vMemAccM_vMemApi.h provides incorrect version macro
+ *  main-3               2025-03-18     vircnt          X X X X X -       MEMSLP-10843        Add safety manual and execute silent analysis
+ *  1.00.00              -              -               - - - - - -       -                   SemVer release 1.00.00 based on main-3 
+ *  main-4               2025-04-07     fbockaj         - X - - - -       MEMSLP-11312        Implement MemInstanceId Validator
+ *  main-4               2025-04-07     vircre          - X - - - X       ESCAN00119838       Fix compiler error due to invalid file in rules.mak
+ *  main-5               2025-04-09     fbockaj         X X - - - -       MEMSLP-11455        Update versions in BSWMD and public header
+ *  1.00.01              -              -               - - - - - -       -                   SemVer release 1.00.01 based on main-5 
+ *  main-6               2025-05-19     vircre          X - - X - -       ESCAN00119943       MEM_30_LEGACY_ADAPTER_CONST is not defined
+ *  main-6               2025-06-05     vircre          X X - X - -       MEMSLP-10600        Mem_30_LegacyAdapter: CFG6 Migration
+ *  1.01.00              -              -               - - - - - -       -                   SemVer release 1.01.00 based on main-6 
+ *  main-7               2025-06-13     vircre          X X - X - -       ESCAN00120339       Short name for container MemGeneral is wrong in PreConfiguration
+ *  1.01.01              -              -               - - - - - -       -                   SemVer release 1.01.01 based on main-7 
+ *  main-8               2025-08-26     vircre          X X - X X -       MEMAB-427           Mem_30_LegacyAdapter: Fix findings from SafetyCheck and Description in BSWMD
+ *  main-8               2025-09-01     vweiss          - X - X - -       ESCAN00121005       Mem_30_LegacyAdapter validation error for big vMemStartAddress
+ *  main-8               2025-09-01     vweiss          X X X X X -       ESCAN00120921       Mem_30_LegacyAdapter might cause endless loop in PropagateError
+ *  main-8               2025-09-02     vircre          X X X X X -       MEMAB-426           Mem_30_LegacyAdapter: Provide indirect dynamic mode
+ *  1.02.00              -              -               - - - - - -       -                   SemVer release 1.02.00 based on main-8 
+ *  main-9               2025-09-05     vweiss          X X - X - -       ESCAN00121123       Compiler error: Memory section has already been opened
+ *  1.02.01              -              -               - - - - - -       -                   SemVer release 1.02.01 based on main-9 
+ *  main-10              2025-10-02     vweiss          X X X X X -       MEMAB-428           Mem_30_LegacyAdapter shall connect Fls driver
+ *  main-11              2025-10-20     vircre          X X X X X -       MEMAB-208           Mem_30_LegacyAdapter shall connect Eep driver
+ *  main-12              2025-10-24     vircre          X X - X X -       MEMAB-393           Mem_30_LegacyAdapter: Support MemMap Generator compliant to AUTOSAR 22-11
+ *  2.00.00              -              -               - - - - - -       -                   SemVer release 2.00.00 based on main-12 
+ *  main-13              2025-11-07     vircre          X X - X - -       MEMAB-790           Mem_30_LegacyAdapter: Create Migration Rules
+ *  2.00.01              -              -               - - - - - -       -                   SemVer release 2.00.01 based on main-13 
+ *  main-14              2025-12-01     renovate_bot_ms - X - - - -       CIA-488             Renovate Update config/common digest to 6dae216 (main)
+ *  main-14              2025-12-10     virmlb          X X - X - -       MEMAB-839           MemIf Types Shall Only be included if needed
+ *  main-14              2025-12-11     vircre          X X - - - -       MEMAB-936           Mem_30_LegacyAdapter: Release MemifTypes include conditional
+ *  2.00.02              -              -               - - - - - -       -                   SemVer release 2.00.02 based on main-14 
+ *  main-15              2026-02-09     vircre          X X - X X -       ESCAN00122224       Compiler error: l-value specifies const object
+ *  2.00.03              -              -               - - - - - -       -                   SemVer release 2.00.03 based on main-15 
+ *  main-16              2026-03-11     vircre          X X - X - -       ESCAN00122581       Compiler error: Missing file Det.h
+ *  2.00.04              -              -               - - - - - -       -                   SemVer release 2.00.04 based on main-16 
+ *  main-17              2026-04-15     vircre          X X - X - -       ESCAN00122891       Compiler error: Mem_30_LegacyAdapter_ModuleInitialized is mapped to wrong section in Mem_30_LegacyAdapter_ErrorChecks_Int.h
+ *  2.00.05              -              -               - - - - - -       -                   SemVer release 2.00.05 based on main-17 
+ *********************************************************************************************************************/

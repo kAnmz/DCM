@@ -1,0 +1,305 @@
+###############################################################################
+# Makefile.bsw_cbd.part.defines
+###############################################################################
+
+################################################################################
+# MANDATORY VARIABLES TO BE DEFINED ON MAIN MAKEFILE:                          
+#   - `BSW_DIR`     : path to Vector CSP/SIP is loacted 
+#   - `GENDATA_DIR` : path to generated files by DaVinci is located
+#
+#
+# OPTIONAL VARIABLES THAT CAN BE DEFINED ON MAIN MAKEFILE:
+#   - `MODULE_LIST_PROJECT` : List of AUTOSAR modules to be builded
+#   - `BSW_SRC_DIR`         : folder name where the src/inc files are located in
+#                             each AUTOSAR module
+#   - `BSW_MAKE_DIR`        : folder name where the make files are located in
+#                             each AUTOSAR module
+# 
+#   - `MCAL_EXCLUDE_ADC` --+
+#   - `MCAL_EXCLUDE_DIO`   |
+#   - `MCAL_EXCLUDE_FLS`   |
+#   - `MCAL_EXCLUDE_GPT`   |
+#   - `MCAL_EXCLUDE_ICU`   |    
+#   - `MCAL_EXCLUDE_MCU`    >  0 to use `MCAL_PATH` path defined on Mcal_Cyt2xy_rules.mak
+#   - `MCAL_EXCLUDE_OCU`   |   1 to include manually the MCAL files
+#   - `MCAL_EXCLUDE_PORT`  |
+#   - `MCAL_EXCLUDE_PWM`   |
+#   - `MCAL_EXCLUDE_SPI`   |
+#   - `MCAL_EXCLUDE_WDG` --+
+#
+#   - `BSW_INCLUDE_GENDATA_FILE` : 0 to include generated files here
+#                                     1 to include manually the generated files
+################################################################################
+
+
+################################################################################
+#  function os_path(filepath...)
+#  return list of 'file' with os specific path delimiter
+os_path=$(subst \,/,$(1))
+
+
+################################################################################
+# Can be overwritten in main makefile
+ifeq ($(BSW_SIP_LICENSE),)
+  BSW_SIP_LICENSE=/CBD2600619_D00.0_M
+endif
+
+ifeq ($(MODULE_LIST_PROJECT),)
+  # List of AUTOSAR modules
+  MODULE_LIST_PROJECT=Arti               \
+                      BswM               \
+                      CanIf              \
+                      CanNm              \
+                      CanSM              \
+                      CanTp              \
+                      CanTrcv_30_Tja1043 \
+                      Com                \
+                      ComM               \
+                      Crc                \
+                      Dcm                \
+                      Dem                \
+                      Det                \
+                      E2E                \
+                      EcuM               \
+                      Fee                \
+                      Fee_30_FlexNor     \
+                      IpduM              \
+                      IoHwAb             \
+                      Mcal_Cyt2xy        \
+                      MemIf              \
+                      Nm                 \
+                      NvM                \
+                      Os                 \
+                      PduR               \
+                      vDem42             \
+                      vMemAccM           \
+                      VStdLib            \
+                      WdgIf              \
+                      WdgM               
+
+endif
+
+ifeq ($(BSW_INCLUDE_VBASEENV),)
+  BSW_INCLUDE_VBASEENV = 0
+endif
+
+ifeq ($(BSW_INCLUDE_VBASEENV),1)
+  MODULE_LIST_PROJECT+=vBaseEnv          \
+                       vBRS              \
+                       vLinkGen
+endif
+
+ifeq ($(BSW_MAKE_DIR),)
+  BSW_MAKE_DIR=Make
+endif
+
+ifeq ($(BSW_SRC_DIR),)
+  BSW_SRC_DIR=/Implementation
+endif
+
+ifeq ($(ROOT),)
+  ROOT=$(PROJECT_PATH)
+endif
+
+ifeq ($(GLOBAL_COMP_DIR),)
+  GLOBAL_COMP_DIR=$(shell echo "$(BSW_DIR)$(BSW_SIP_LICENSE)" |sed -e "s/^.\///")
+endif
+
+ifneq ($(SSC_ROOT),$(BSW_DIR))
+  SSC_ROOT=$(BSW_DIR)
+endif
+
+ifeq ($(BSW_INCLUDE_GENDATA_FILE),)
+  BSW_INCLUDE_GENDATA_FILE = 0
+endif
+
+ifeq ($(BSW_INCLUDE_COMMON_PATH),)
+  BSW_INCLUDE_COMMON_PATH = 1
+endif
+
+# Vtt components
+ifeq ($(VTT_MODULE_LIST_PRJ),)
+  VTT_MODULE_LIST_PRJ=VttAdc   \
+                      VttCan   \
+                      VttCntrl \
+                      VttDio   \
+                      VttEep   \
+                      VttFls   \
+                      VttGpt   \
+                      VttIcu   \
+                      VttMcu   \
+                      VttPort  \
+                      VttPwm   \
+                      VttSpi   \
+                      VttWdg 
+endif
+
+ifeq ($(VTT_MODULE_EXCLUDE),)
+  VTT_MODULE_EXCLUDE = 1
+endif
+
+
+# Mcal_Cyt2xy
+ifeq ($(MCAL_EXCLUDE_ADC),)
+  MCAL_EXCLUDE_ADC = 1
+endif
+ifeq ($(MCAL_EXCLUDE_DIO),)
+  MCAL_EXCLUDE_DIO = 1
+endif
+ifeq ($(MCAL_EXCLUDE_FLS),)
+  MCAL_EXCLUDE_FLS = 1
+endif
+ifeq ($(MCAL_EXCLUDE_GPT),)
+  MCAL_EXCLUDE_GPT = 1
+endif
+ifeq ($(MCAL_EXCLUDE_ICU),)
+  MCAL_EXCLUDE_ICU = 1
+endif
+ifeq ($(MCAL_EXCLUDE_MCU),)
+  MCAL_EXCLUDE_MCU = 1
+endif
+ifeq ($(MCAL_EXCLUDE_OCU),)
+  MCAL_EXCLUDE_OCU = 1
+endif
+ifeq ($(MCAL_EXCLUDE_PORT),)
+  MCAL_EXCLUDE_PORT = 1
+endif
+ifeq ($(MCAL_EXCLUDE_PWM),)
+  MCAL_EXCLUDE_PWM = 1
+endif
+ifeq ($(MCAL_EXCLUDE_SPI),)
+  MCAL_EXCLUDE_SPI = 1
+endif
+ifeq ($(MCAL_EXCLUDE_WDG),)
+  MCAL_EXCLUDE_WDG = 1
+endif
+
+
+################################################################################
+# clean
+CC_INCLUDE_PATH:=
+CPP_INCLUDE_PATH:=
+ASM_INCLUDE_PATH:=
+
+
+################################################################################
+include $(foreach _M,$(MODULE_LIST_PROJECT),$(BSW_DIR)$(BSW_SIP_LICENSE)/$(_M)/$(BSW_MAKE_DIR)/$(_M)_cfg.mak)
+include $(foreach _M,$(MODULE_LIST_PROJECT),$(BSW_DIR)$(BSW_SIP_LICENSE)/$(_M)/$(BSW_MAKE_DIR)/$(_M)_defs.mak)
+include $(foreach _M,$(MODULE_LIST_PROJECT),$(BSW_DIR)$(BSW_SIP_LICENSE)/$(_M)/$(BSW_MAKE_DIR)/$(_M)_rules.mak)
+include $(foreach _M,$(MODULE_LIST_PROJECT),$(BSW_DIR)$(BSW_SIP_LICENSE)/$(_M)/$(BSW_MAKE_DIR)/$(_M)_check.mak)
+
+ifneq ($(VTT_MODULE_EXCLUDE),1)
+
+  ifeq ($(findstring VttAdc,$(VTT_MODULE_LIST_PRJ)),VttAdc)
+    CC_FILES_TO_BUILD       += VttAdc$(BSW_SRC_DIR)/Adc.c
+    CC_FILES_TO_BUILD       += VttAdc$(BSW_SRC_DIR)/Adc_Irq.c
+  endif
+  
+  ifeq ($(findstring VttCan,$(VTT_MODULE_LIST_PRJ)),VttCan)
+    CC_FILES_TO_BUILD       += VttCan$(BSW_SRC_DIR)/Can.c
+    CC_FILES_TO_BUILD       += VttCan$(BSW_SRC_DIR)/Can_Irq.c
+  endif
+  
+  ifeq ($(findstring VttCntrl,$(VTT_MODULE_LIST_PRJ)),VttCntrl)
+    CC_FILES_TO_BUILD       += VttCntrl$(BSW_SRC_DIR)/VttCntrl_Adc.c
+    CC_FILES_TO_BUILD       += VttCntrl$(BSW_SRC_DIR)/VttCntrl_Base.c
+    CC_FILES_TO_BUILD       += VttCntrl$(BSW_SRC_DIR)/VttCntrl_Can.c
+    CC_FILES_TO_BUILD       += VttCntrl$(BSW_SRC_DIR)/VttCntrl_Crypto.c
+    CC_FILES_TO_BUILD       += VttCntrl$(BSW_SRC_DIR)/VttCntrl_Crypto_vHsm.c
+    CC_FILES_TO_BUILD       += VttCntrl$(BSW_SRC_DIR)/VttCntrl_Det.c
+    CC_FILES_TO_BUILD       += VttCntrl$(BSW_SRC_DIR)/VttCntrl_Dio.c
+    CC_FILES_TO_BUILD       += VttCntrl$(BSW_SRC_DIR)/VttCntrl_Eep.c
+    CC_FILES_TO_BUILD       += VttCntrl$(BSW_SRC_DIR)/VttCntrl_Eth.c
+    CC_FILES_TO_BUILD       += VttCntrl$(BSW_SRC_DIR)/VttCntrl_Fls.c
+    CC_FILES_TO_BUILD       += VttCntrl$(BSW_SRC_DIR)/VttCntrl_Fr.c
+    CC_FILES_TO_BUILD       += VttCntrl$(BSW_SRC_DIR)/VttCntrl_Gpt.c
+    CC_FILES_TO_BUILD       += VttCntrl$(BSW_SRC_DIR)/VttCntrl_Icu.c
+    CC_FILES_TO_BUILD       += VttCntrl$(BSW_SRC_DIR)/VttCntrl_Mcu.c
+    CC_FILES_TO_BUILD       += VttCntrl$(BSW_SRC_DIR)/VttCntrl_Pwm.c
+    CC_FILES_TO_BUILD       += VttCntrl$(BSW_SRC_DIR)/VttCntrl_SysVar.c
+    CC_FILES_TO_BUILD       += VttCntrl$(BSW_SRC_DIR)/VttCntrl_Wdg.c
+    CC_FILES_TO_BUILD       += VttCntrl$(BSW_SRC_DIR)/VttCntrl_vMem.c
+  endif
+  
+  ifeq ($(findstring VttDio,$(VTT_MODULE_LIST_PRJ)),VttDio)
+   CC_FILES_TO_BUILD       += VttDio$(BSW_SRC_DIR)/Dio.c
+  endif
+  
+  ifeq ($(findstring VttEep,$(VTT_MODULE_LIST_PRJ)),VttEep)
+   CC_FILES_TO_BUILD       += VttEep$(BSW_SRC_DIR)/Eep.c
+  endif
+  
+  ifeq ($(findstring VttFls,$(VTT_MODULE_LIST_PRJ)),VttFls)
+   CC_FILES_TO_BUILD       += VttFls$(BSW_SRC_DIR)/Fls.c
+  endif
+  
+  ifeq ($(findstring VttGpt,$(VTT_MODULE_LIST_PRJ)),VttGpt)
+   CC_FILES_TO_BUILD       += VttGpt$(BSW_SRC_DIR)/Gpt.c
+   CC_FILES_TO_BUILD       += VttGpt$(BSW_SRC_DIR)/Gpt_Irq.c
+  endif
+  
+  ifeq ($(findstring VttIcu,$(VTT_MODULE_LIST_PRJ)),VttIcu)
+   CC_FILES_TO_BUILD       += VttIcu$(BSW_SRC_DIR)/Icu.c
+   CC_FILES_TO_BUILD       += VttIcu$(BSW_SRC_DIR)/Icu_Irq.c
+  endif
+  
+  ifeq ($(findstring VttMcu,$(VTT_MODULE_LIST_PRJ)),VttMcu)
+   CC_FILES_TO_BUILD       += VttMcu$(BSW_SRC_DIR)/Mcu.c
+  endif
+  
+  ifeq ($(findstring VttPort,$(VTT_MODULE_LIST_PRJ)),VttPort)
+   CC_FILES_TO_BUILD       += VttPort$(BSW_SRC_DIR)/Port.c
+  endif
+  
+  ifeq ($(findstring VttPwm,$(VTT_MODULE_LIST_PRJ)),VttPwm)
+   CC_FILES_TO_BUILD       += VttPwm$(BSW_SRC_DIR)/Pwm.c
+   CC_FILES_TO_BUILD       += VttPwm$(BSW_SRC_DIR)/Pwm_Irq.c
+  endif
+  
+  ifeq ($(findstring VttSpi,$(VTT_MODULE_LIST_PRJ)),VttSpi)
+   CC_FILES_TO_BUILD       += VttSpi$(BSW_SRC_DIR)/Spi.c
+   CC_FILES_TO_BUILD       += VttSpi$(BSW_SRC_DIR)/Spi_Irq.c
+  endif
+  
+  ifeq ($(findstring VttWdg,$(VTT_MODULE_LIST_PRJ)),VttWdg)
+   CC_FILES_TO_BUILD       += VttWdg$(BSW_SRC_DIR)/Wdg.c
+  endif
+
+endif
+
+
+################################################################################
+# Adding source to the "global" SRC variables
+$(info $CC_FILES_TO_BUILD)
+# --- Vector CSP/SIP
+SRC_C_FILE += $(foreach _FILE,$(CC_FILES_TO_BUILD),$(addprefix $(BSW_DIR)$(BSW_SIP_LICENSE)/,$(call os_path,$(_FILE))))
+SRC_CPP_FILE += $(foreach _FILE,$(CPP_FILES_TO_BUILD),$(addprefix $(BSW_DIR)$(BSW_SIP_LICENSE)/,$(call os_path,$(_FILE))))
+SRCASM_ASM += $(foreach _FILE,$(ASM_FILES_TO_BUILD),$(addprefix $(BSW_DIR)$(BSW_SIP_LICENSE)/,$(call os_path,$(_FILE))))
+
+ifneq ($(BSW_INCLUDE_GENDATA_FILE),1)
+  # --- DaVinci generated files
+  SRC_C_FILE += $(foreach _FILE,$(GENERATED_SOURCE_FILES),$(call os_path,$(_FILE)))
+  SRCASM_ASM += $(foreach _FILE,$(ASM_GENERATED_SOURCE_FILES),$(call os_path,$(_FILE)))
+endif
+
+
+################################################################################
+# Adding includes to the "global" INCLUDES variable
+ifeq ($(BSW_INCLUDE_COMMON_PATH),1)
+  INCLUDES += $(addprefix -I, $(BSW_DIR)$(BSW_SIP_LICENSE)/_Common$(BSW_SRC_DIR))
+endif
+
+# --- Vector CSP/SIP
+# CC_INCLUDE_PATH   CPP_INCLUDE_PATH  ASM_INCLUDE_PATH
+INCLUDES += $(foreach _M,$(MODULE_LIST_PROJECT), $(addprefix -I, $(BSW_DIR)$(BSW_SIP_LICENSE)/$(_M)$(BSW_SRC_DIR)))
+ifneq ($(VTT_MODULE_EXCLUDE),1)
+  INCLUDES += $(foreach _M,$(VTT_MODULE_LIST_PRJ), $(addprefix -I, $(BSW_DIR)$(BSW_SIP_LICENSE)/$(_M)$(BSW_SRC_DIR)))
+endif
+
+ifneq ($(BSW_INCLUDE_GENDATA_FILE),1)
+  # --- DaVinci generated files
+  INCLUDES += $(foreach _M,$(ADDITIONAL_INCLUDES), $(addprefix -I, $(call os_path,$(_M))))
+  INCLUDES += $(addprefix -I, $(GENDATA_DIR))
+endif
+
+###############################################################################

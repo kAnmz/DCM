@@ -1,0 +1,44 @@
+;********************************************************************************
+;* Copyright 2016-2017, Cypress Semiconductor Corporation. All rights reserved.
+;* You may use this file only in accordance with the license, terms, conditions,
+;* disclaimers, and limitations in the end user license agreement accompanying
+;* the software package with which this file was provided.
+;********************************************************************************
+
+
+        .file "start_cm0.arm"
+
+;************************************************************************
+;*                            Local definitions
+;************************************************************************
+
+APPLICATION_ADDRESS                    .equ 0x10060000    
+
+;************************************************************************
+;*                            Import symbols
+;************************************************************************
+
+;************************************************************************
+;*                            Export symbols
+;************************************************************************
+		.export JUMP_TO_APPLICATION
+		
+;************************************************************************
+
+		.text
+JUMP_TO_APPLICATION:
+        DSB     ; Make sure outstanding transfers are done        
+        ISB        ; Make sure outstanding transfers are done
+        LDR R0, =APPLICATION_ADDRESS
+        LDR R1, [R0] ; Load addr APPLICATION_ADDRESS contet to R1
+        MSR MSP, R1
+        LDR R1, [R0, #4]
+        BLX  R1
+		.endf JUMP_TO_APPLICATION
+;************************************************************************
+;*                             File end
+;************************************************************************
+
+        END
+
+

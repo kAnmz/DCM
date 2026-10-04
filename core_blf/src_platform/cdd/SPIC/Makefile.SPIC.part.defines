@@ -1,0 +1,6 @@
+###############################################################################
+# Makefile.SPIC.part.defines
+# Source - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -#
+SRC_DIR += $(CDD_DIR)/SPIC/Sources
+# Header - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -#
+INCLUDES += $(addprefix -I, $(CDD_DIR)/SPIC/PublicInt)

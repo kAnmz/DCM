@@ -1,0 +1,7 @@
+###############################################################################
+# Makefile.CPUS.part.defines
+# Source - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -#
+SRC_DIR += $(CDD_DIR)/CPUS/Sources
+# Header - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -#
+INCLUDES += $(addprefix -I, $(CDD_DIR)/CPUS/PublicInt)
+INCLUDES += $(addprefix -I, $(CDD_DIR)/CPUS/PublicInt/tviibe1m)

@@ -1,0 +1,91 @@
+/**********************************************************************************************************************
+ *  REVISION HISTORY
+ *
+ *  This file contains the revision history of the component implementation and all related artifacts.
+ *  The revision history covers all released version of the component. If you have received a development version of
+ *  this component, the changes made in the development version are not referenced herein.
+ *
+ *  Legend of Columns:
+ *
+ *    I - Implementation
+ *    G - Generator
+ *    D - Documentation & Technical Reference
+ *    T - Test Implementation
+ *    S - Specification
+ *    B - Build-Artifacts
+ *
+ *  Legend of Cells:
+ *
+ *    X - Artifact is affected by the change.
+ *    - - Artifact is not affected by the change.
+ *
+ *  -------------------------------------------------------------------------------------------------------------------
+ *  Version              Date           Author          I G D T S B       Change Id           Description
+ *  -------------------------------------------------------------------------------------------------------------------
+ *  main-1               2023-11-09     smacht          X X X X X X       MEMSLP-7953         Gitlab Migration
+ *  main-1               2023-12-11     sstemplinge     X X X X X -       MEMSLP-8590         MemAcc: Support of parallel Mem driver request processing
+ *  main-1               2023-12-18     sstemplinge     - - X X X -       MEMSLP-8616         MemAcc: Support Gaps within AddressArea configuration
+ *  main-1               2024-01-18     group_433_bot_8918be7e278d67622ccce09cfb7f4951 - X - - - -       CIA-488             Renovate Update config/common digest to d8143a7
+ *  main-1               2024-01-22     sstemplinge     - - - X - -       MEMSLP-8577         Rework Component Tests
+ *  main-1               2024-01-24     virbka          X X X X X -       MEMSLP-8594         MemAcc: ASIL D process
+ *  main-1               2024-01-26     virbmz          - - - X - -       MEMSLP-8594         MemAcc: ASIL D process
+ *  main-2               2024-02-14     sstemplinge     X X X X X X       MEMSLP-8606         MemAcc: Update to ASR 23-11 including hot fixes
+ *  1.01.00              -              -               - - - - - -       -                   SemVer release 1.01.00 based on main-2 
+ *  main-3               2024-02-28     bma             - X X - X -       CIB-3116            Migrate component with copier
+ *  main-3               2024-02-29     sstemplinge     X X X X X -       MEMSLP-8586         MemAcc: Support Mem Driver burst functionality
+ *  main-3               2024-03-07     virbmz          X X X X X -       MEMSLP-8573         MemAcc: Race Condition Analysis & Exclusive Areas
+ *  1.02.00              -              -               - - - - - -       -                   SemVer release 1.02.00 based on main-3 
+ *  main-4               2024-04-29     vweiss          X X X X X -       MEMSLP-8610         MemAcc: Support of Retry Mechanism
+ *  main-5               2024-05-02     sstemplinge     X X X X X -       MEMSLP-8592         MemAcc: Provide MemAcc_RequestLock and MemAcc_Releaselock
+ *  main-6               2024-05-03     vweiss          X X - X X -       MEMSLP-9399         MemAcc: Improvements
+ *  1.03.00              -              -               - - - - - -       -                   SemVer release 1.03.00 based on main-6 
+ *  main-7               2024-05-06     ghost           - - - - - -       CIA-488             Renovate Update config/common digest to fdda146
+ *  main-7               2024-08-09     smacht          X - X X X -       MEMSLP-9762         Fix SafetyCheck findings
+ *  main-8               2024-08-09     virbka          X X - X - -       MEMSLP-10107        Updated SW version
+ *  2.00.00              -              -               - - - - - -       -                   SemVer release 2.00.00 based on main-8 
+ *  main-9               2024-10-29     vweiss          X X X X X -       MEMSLP-8584         support of 64bit addresses
+ *  main-9               2024-10-30     vweiss          X X X X X -       MEMSLP-8730         provide MemAcc_DeInit
+ *  main-9               2024-11-11     vweiss          X X - X X -       MEMSLP-10260        MemAcc: Fix SafetyCheck findings follow up
+ *  main-9               2024-11-15     vweiss          - - - - X -       MEMSLP-10337        Suspend and resume an ongoing lower priority job
+ *  main-9               2024-12-05     twagenpfeil     X X X X X -       MEMSLP-8588         Suspend and Resume ongoing lower priority job
+ *  2.01.00              -              -               - - - - - -       -                   SemVer release 2.01.00 based on main-9 
+ *  main-10              2025-02-20     vweiss          X - - X - -       MEMSLP-10933        changed MemInitFuncType to void, ServiceNotAvail to 3
+ *  main-10              2025-03-04     vircre          X X - - - -       ESCAN00119266       MemAcc: Exception during validation: 'SizeOfCompareBuffer' is not in the range of the specified datatype
+ *  main-10              2025-03-04     virbka          X - - X X -       ESCAN00119337       Compare of written data fails, if length is not aligned to MemMaxReadSize
+ *  2.01.01              -              -               - - - - - -       -                   SemVer release 2.01.01 based on main-10 
+ *  main-11              2025-03-25     virbka          X X X X X X       MEMSLP-8602         MemAcc Multi Binary feature
+ *  3.00.00              -              -               - - - - - -       -                   SemVer release 3.00.00 based on main-11 
+ *  main-12              2025-04-10     vircre          - X X X X -       MEMSLP-10903        Migrate to esf config
+ *  main-12              2025-04-28     vweiss          X X - X X -       MEMSLP-10540        Cfg6 migration
+ *  main-13              2025-05-15     vweiss          X X X X X -       MEMSLP-10339        MemAcc: Support Bad Management with skip method for NAND devices
+ *  3.01.00              -              -               - - - - - -       -                   SemVer release 3.01.00 based on main-13 
+ *  main-14              2025-05-30     virbmz          - X - - - -       MEMSLP-11667        MemAcc Validator Implementation for merged NAND MultiBinary MemAcc
+ *  main-14              2025-06-12     vweiss          X - - X X -       MEMSLP-10853        Check And Analyze VCA
+ *  main-14              2025-06-25     vweiss          X - - X - -       ESCAN00119727       Fix build errors due to missing compiler abstraction defines.
+ *  main-14              2025-06-25     vweiss          - X - - - -       ESCAN00119712       Fix validation error for correct configurations
+ *  main-14              2025-06-26     vweiss          X X X X - -       MEMSLP-11671        Remove unneccessary jobstepstruct information
+ *  main-14              2025-07-04     vweiss          X X X X X -       MEMSLP-10967        Virtual flash driver to map 2 flash blocks to one physical device
+ *  main-14              2025-07-16     vweiss          X - - X - -       MEMSLP-11702        MemAcc_ApplicationLockNotificationType for RequestLock
+ *  main-14              2025-07-18     vweiss          X X X X X -       MEMSLP-11695        Make suspend resume optional
+ *  main-14              2025-07-21     vweiss          X - - - - -       MEMSLP-11695        Fixed new CDK Testreport requirements
+ *  3.02.00              -              -               - - - - - -       -                   SemVer release 3.02.00 based on main-14 
+ *  main-15              2025-08-18     vweiss          X X X X X -       MEMSLP-8579         MemAcc: Provide ActivateMem and DeactivateMem
+ *  3.03.00              -              -               - - - - - -       -                   SemVer release 3.03.00 based on main-15 
+ *  main-16              2025-10-30     vweiss          X X - X X -       MEMAB-646           Maintainance Code Cleanup
+ *  main-16              2025-11-07     vweiss          - X X X - -       MEMAB-625           optimize MemDriverIndex usage
+ *  main-16              2025-11-10     vweiss          X X X X X -       ESCAN00119341       Inconsistant Data in case of Compare and two users with Mem Drivers in different Sync Groups
+ *  main-16              2025-11-10     vweiss          X X X X X -       MEMAB-193           support read retries
+ *  main-16              2025-11-14     vweiss          X X - X X -       ESCAN00121693       Compiler error: unknown type name 'MemAcc_RedirectSectorBatchIterType'
+ *  main-16              2025-11-14     virbmz          X X X X X -       MEMAB-192           Provide virtual Activate and Deactivation
+ *  main-16              2025-11-27     renovate_bot_ms - X - - - -       CIA-488             Renovate Update config/common digest to 9e66228 (main)
+ *  main-16              2025-12-01     vircre          X - - X - -       ESCAN00121843       Wrong type usage for EraseSectorSize in case of BBM
+ *  3.04.00              -              -               - - - - - -       -                   SemVer release 3.04.00 based on main-16 
+ *  main-17              2026-01-13     vweiss          X X - X - -       MEMAB-943           Validate MemAccBufferAlignmentValue
+ *  main-17              2026-02-18     vweiss          X X X X X -       MEMAB-802           TestMigration
+ *  main-17              2026-02-18     vweiss          X - - - - -       MEMAB-693           Create Debugging Documentation and Implementation
+ *  main-17              2026-02-18     vweiss          - X - - - -       ESCAN00122256       Fix MemMap Sections around Mem FunctionPointerTable declaration
+ *  main-17              2026-02-27     vweiss          X X - X - -       MEMAB-1112          Footprint: Gendata & MemAb
+ *  main-17              2026-03-10     vweiss          X - - - - -       ESCAN00122588       VCA analysis is not skipped if MemAcc is in SIP but not used
+ *  main-17              2026-03-13     vweiss          X X X X X -       MEMAB-1025          Abstract read alignment requirement for user
+ *  3.05.00              -              -               - - - - - -       -                   SemVer release 3.05.00 based on main-17 
+ *********************************************************************************************************************/

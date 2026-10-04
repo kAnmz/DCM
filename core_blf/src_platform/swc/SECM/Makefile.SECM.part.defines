@@ -1,0 +1,6 @@
+###############################################################################
+# Makefile.SECM.part.defines
+# Source - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -#
+SRC_DIR += $(SWC_DIR)/SECM/Sources
+# Header - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -#
+INCLUDES += $(addprefix -I, $(SWC_DIR)/SECM/PublicInt)

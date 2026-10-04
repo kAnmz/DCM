@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Settings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Settings Name="com.vector.cfg.core.sip.ISIPService">
+    <Settings Name="ModuleList">
+      <Settings Name="vMem">
+        <Settings Name="MEM_GRP_CYT2B7">
+          <Setting Name="SIP_Folder" Value="vMem_30_Traveo2Cyp01" />
+          <Settings Name="BB617CFC-5234-4F30-9682-9837FA5E4CD5">
+            <Setting Name="Derivative" Value="CYT2B75Bxx" />
+            <Setting Name="SIP_Folder" Value="CYT2B7" />
+            <Setting Name="ReleaseType" Value="Hardware Reference Checked" />
+          </Settings>
+        </Settings>
+      </Settings>
+    </Settings>
+  </Settings>
+</Settings>

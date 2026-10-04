@@ -1,0 +1,6 @@
+###############################################################################
+# Makefile.STAR.part.defines
+# Source - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -#
+SRC_DIR += $(CDD_DIR)/STAR/Sources
+# Header - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -#
+INCLUDES += $(addprefix -I, $(CDD_DIR)/STAR/PublicInt)

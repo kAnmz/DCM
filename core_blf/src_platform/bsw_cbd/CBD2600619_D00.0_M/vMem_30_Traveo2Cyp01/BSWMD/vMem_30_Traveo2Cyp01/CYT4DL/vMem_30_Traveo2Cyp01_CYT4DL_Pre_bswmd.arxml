@@ -1,0 +1,412 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+***********************************************************************************************************************
+COPYRIGHT
+===============================================================================
+Copyright (c) 2025 by Vector Informatik GmbH.                                         All rights reserved.
+
+    This software is copyright protected and proprietary to Vector Informatik GmbH.
+    Vector Informatik GmbH grants to you only those rights as set out in the license conditions.
+    All other rights remain with Vector Informatik GmbH.
+===============================================================================
+FILE DESCRIPTION
+===============================================================================
+File:           vMem_30_Traveo2Cyp01_CYT4DL_Pre_bswmd.arxml
+Component:      $COMPONENT$
+Module:         vMem
+Generator:      $GENERATOR$
+Description:    $DESCRIPTION$
+*********************************************************************************************************************** 
+-->
+<AUTOSAR xsi:schemaLocation="http://autosar.org/schema/r4.0 AUTOSAR_4-0-3.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://autosar.org/schema/r4.0">
+	<AR-PACKAGES>
+		<AR-PACKAGE UUID="ff55d029-386d-43a2-b3c2-dfef4c7a5e36">
+			<SHORT-NAME>MICROSAR</SHORT-NAME>
+			<AR-PACKAGES>
+				<AR-PACKAGE UUID="e352fcf3-a8d2-4192-aea4-04c922edaa5b">
+					<SHORT-NAME>vMem_30_Traveo2Cyp01</SHORT-NAME>
+					<ELEMENTS>
+						<ECUC-MODULE-CONFIGURATION-VALUES UUID="bb389734-e005-422d-a8e6-1868afee6c09">
+							<SHORT-NAME>vMem_Pre</SHORT-NAME>
+							<DEFINITION-REF DEST="ECUC-MODULE-DEF">/MICROSAR/vMem_30_Traveo2Cyp01/vMem</DEFINITION-REF>
+							<CONTAINERS>
+								<ECUC-CONTAINER-VALUE UUID="52a54aae-0935-473d-a48d-fbfa65cf4399">
+									<SHORT-NAME>vMemPublishedInformation</SHORT-NAME>
+									<DEFINITION-REF DEST="ECUC-PARAM-CONF-CONTAINER-DEF">/MICROSAR/vMem_30_Traveo2Cyp01/vMem/vMemPublishedInformation</DEFINITION-REF>
+									<SUB-CONTAINERS>
+										<ECUC-CONTAINER-VALUE UUID="42a241f5-dbed-4c68-a68a-37ced7397728">
+											<SHORT-NAME>vMemDerivativeInformation</SHORT-NAME>
+											<DEFINITION-REF DEST="ECUC-PARAM-CONF-CONTAINER-DEF">/MICROSAR/vMem_30_Traveo2Cyp01/vMem/vMemPublishedInformation/vMemDerivativeInformation</DEFINITION-REF>
+											<SUB-CONTAINERS>
+												<ECUC-CONTAINER-VALUE UUID="f9ccce24-6560-49d1-81c7-bba3af6102c0">
+													<SHORT-NAME>FLASHC</SHORT-NAME>
+													<DEFINITION-REF DEST="ECUC-PARAM-CONF-CONTAINER-DEF">/MICROSAR/vMem_30_Traveo2Cyp01/vMem/vMemPublishedInformation/vMemDerivativeInformation/vMemPeripheral</DEFINITION-REF>
+													<PARAMETER-VALUES>
+														<ECUC-NUMERICAL-PARAM-VALUE>
+															<DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/MICROSAR/vMem_30_Traveo2Cyp01/vMem/vMemPublishedInformation/vMemDerivativeInformation/vMemPeripheral/vMemPeripheralEndAddress</DEFINITION-REF>
+															<VALUE>1076232191</VALUE>
+														</ECUC-NUMERICAL-PARAM-VALUE>
+														<ECUC-NUMERICAL-PARAM-VALUE>
+															<DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/MICROSAR/vMem_30_Traveo2Cyp01/vMem/vMemPublishedInformation/vMemDerivativeInformation/vMemPeripheral/vMemPeripheralStartAddress</DEFINITION-REF>
+															<VALUE>1076101120</VALUE>
+														</ECUC-NUMERICAL-PARAM-VALUE>
+													</PARAMETER-VALUES>
+												</ECUC-CONTAINER-VALUE>
+												<ECUC-CONTAINER-VALUE UUID="31a422fd-8e50-4fdd-8633-16de3cd92786">
+													<SHORT-NAME>IPC</SHORT-NAME>
+													<DEFINITION-REF DEST="ECUC-PARAM-CONF-CONTAINER-DEF">/MICROSAR/vMem_30_Traveo2Cyp01/vMem/vMemPublishedInformation/vMemDerivativeInformation/vMemPeripheral</DEFINITION-REF>
+													<PARAMETER-VALUES>
+														<ECUC-NUMERICAL-PARAM-VALUE>
+															<DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/MICROSAR/vMem_30_Traveo2Cyp01/vMem/vMemPublishedInformation/vMemDerivativeInformation/vMemPeripheral/vMemPeripheralEndAddress</DEFINITION-REF>
+															<VALUE>1076035583</VALUE>
+														</ECUC-NUMERICAL-PARAM-VALUE>
+														<ECUC-NUMERICAL-PARAM-VALUE>
+															<DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/MICROSAR/vMem_30_Traveo2Cyp01/vMem/vMemPublishedInformation/vMemDerivativeInformation/vMemPeripheral/vMemPeripheralStartAddress</DEFINITION-REF>
+															<VALUE>1075970048</VALUE>
+														</ECUC-NUMERICAL-PARAM-VALUE>
+													</PARAMETER-VALUES>
+												</ECUC-CONTAINER-VALUE>
+												<ECUC-CONTAINER-VALUE UUID="43f15a57-8902-4b5b-ba48-f606851d6063">
+													<SHORT-NAME>FAULT</SHORT-NAME>
+													<DEFINITION-REF DEST="ECUC-PARAM-CONF-CONTAINER-DEF">/MICROSAR/vMem_30_Traveo2Cyp01/vMem/vMemPublishedInformation/vMemDerivativeInformation/vMemPeripheral</DEFINITION-REF>
+													<PARAMETER-VALUES>
+														<ECUC-NUMERICAL-PARAM-VALUE>
+															<DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/MICROSAR/vMem_30_Traveo2Cyp01/vMem/vMemPublishedInformation/vMemDerivativeInformation/vMemPeripheral/vMemPeripheralEndAddress</DEFINITION-REF>
+															<VALUE>1075970047</VALUE>
+														</ECUC-NUMERICAL-PARAM-VALUE>
+														<ECUC-NUMERICAL-PARAM-VALUE>
+															<DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/MICROSAR/vMem_30_Traveo2Cyp01/vMem/vMemPublishedInformation/vMemDerivativeInformation/vMemPeripheral/vMemPeripheralStartAddress</DEFINITION-REF>
+															<VALUE>1075904512</VALUE>
+														</ECUC-NUMERICAL-PARAM-VALUE>
+													</PARAMETER-VALUES>
+												</ECUC-CONTAINER-VALUE>
+											</SUB-CONTAINERS>
+										</ECUC-CONTAINER-VALUE>
+										<ECUC-CONTAINER-VALUE UUID="22f7a635-3121-4b9b-ad9d-c45e0952aa2c">
+											<SHORT-NAME>vMemFlash</SHORT-NAME>
+											<DEFINITION-REF DEST="ECUC-PARAM-CONF-CONTAINER-DEF">/MICROSAR/vMem_30_Traveo2Cyp01/vMem/vMemPublishedInformation/vMemFlash</DEFINITION-REF>
+											<SUB-CONTAINERS>
+												<ECUC-CONTAINER-VALUE UUID="36b9bb1f-3527-43ac-a879-26461059e5ac">
+													<SHORT-NAME>SingleMode_CodeFlash_LargeSectors</SHORT-NAME>
+													<DEFINITION-REF DEST="ECUC-PARAM-CONF-CONTAINER-DEF">/MICROSAR/vMem_30_Traveo2Cyp01/vMem/vMemPublishedInformation/vMemFlash/vMemFlashRegion</DEFINITION-REF>
+													<PARAMETER-VALUES>
+														<ECUC-NUMERICAL-PARAM-VALUE>
+															<DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/MICROSAR/vMem_30_Traveo2Cyp01/vMem/vMemPublishedInformation/vMemFlash/vMemFlashRegion/vMemStartAddress</DEFINITION-REF>
+															<VALUE>268435456</VALUE>
+														</ECUC-NUMERICAL-PARAM-VALUE>
+														<ECUC-NUMERICAL-PARAM-VALUE>
+															<DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/MICROSAR/vMem_30_Traveo2Cyp01/vMem/vMemPublishedInformation/vMemFlash/vMemFlashRegion/vMemNumberOfSectors</DEFINITION-REF>
+															<VALUE>190</VALUE>
+														</ECUC-NUMERICAL-PARAM-VALUE>
+														<ECUC-NUMERICAL-PARAM-VALUE>
+															<DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/MICROSAR/vMem_30_Traveo2Cyp01/vMem/vMemPublishedInformation/vMemFlash/vMemFlashRegion/vMemSectorSize</DEFINITION-REF>
+															<VALUE>32768</VALUE>
+														</ECUC-NUMERICAL-PARAM-VALUE>
+														<ECUC-NUMERICAL-PARAM-VALUE>
+															<DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/MICROSAR/vMem_30_Traveo2Cyp01/vMem/vMemPublishedInformation/vMemFlash/vMemFlashRegion/vMemPageSize</DEFINITION-REF>
+															<VALUE>8</VALUE>
+														</ECUC-NUMERICAL-PARAM-VALUE>
+														<ECUC-TEXTUAL-PARAM-VALUE>
+															<DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/MICROSAR/vMem_30_Traveo2Cyp01/vMem/vMemPublishedInformation/vMemFlash/vMemFlashRegion/vMemFlashType</DEFINITION-REF>
+															<VALUE>CODE</VALUE>
+														</ECUC-TEXTUAL-PARAM-VALUE>
+													</PARAMETER-VALUES>
+												</ECUC-CONTAINER-VALUE>
+												<ECUC-CONTAINER-VALUE UUID="f69840d1-926a-4903-9e36-67d2d313f9b9">
+													<SHORT-NAME>SingleMode_CodeFlash_SmallSectors</SHORT-NAME>
+													<DEFINITION-REF DEST="ECUC-PARAM-CONF-CONTAINER-DEF">/MICROSAR/vMem_30_Traveo2Cyp01/vMem/vMemPublishedInformation/vMemFlash/vMemFlashRegion</DEFINITION-REF>
+													<PARAMETER-VALUES>
+														<ECUC-NUMERICAL-PARAM-VALUE>
+															<DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/MICROSAR/vMem_30_Traveo2Cyp01/vMem/vMemPublishedInformation/vMemFlash/vMemFlashRegion/vMemStartAddress</DEFINITION-REF>
+															<VALUE>274661376</VALUE>
+														</ECUC-NUMERICAL-PARAM-VALUE>
+														<ECUC-NUMERICAL-PARAM-VALUE>
+															<DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/MICROSAR/vMem_30_Traveo2Cyp01/vMem/vMemPublishedInformation/vMemFlash/vMemFlashRegion/vMemNumberOfSectors</DEFINITION-REF>
+															<VALUE>32</VALUE>
+														</ECUC-NUMERICAL-PARAM-VALUE>
+														<ECUC-NUMERICAL-PARAM-VALUE>
+															<DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/MICROSAR/vMem_30_Traveo2Cyp01/vMem/vMemPublishedInformation/vMemFlash/vMemFlashRegion/vMemSectorSize</DEFINITION-REF>
+															<VALUE>8192</VALUE>
+														</ECUC-NUMERICAL-PARAM-VALUE>
+														<ECUC-NUMERICAL-PARAM-VALUE>
+															<DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/MICROSAR/vMem_30_Traveo2Cyp01/vMem/vMemPublishedInformation/vMemFlash/vMemFlashRegion/vMemPageSize</DEFINITION-REF>
+															<VALUE>8</VALUE>
+														</ECUC-NUMERICAL-PARAM-VALUE>
+														<ECUC-TEXTUAL-PARAM-VALUE>
+															<DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/MICROSAR/vMem_30_Traveo2Cyp01/vMem/vMemPublishedInformation/vMemFlash/vMemFlashRegion/vMemFlashType</DEFINITION-REF>
+															<VALUE>CODE</VALUE>
+														</ECUC-TEXTUAL-PARAM-VALUE>
+													</PARAMETER-VALUES>
+												</ECUC-CONTAINER-VALUE>
+												<ECUC-CONTAINER-VALUE UUID="3b533651-e400-406e-8e1b-cdff3bd0bc70">
+													<SHORT-NAME>SingleMode_WorkFlash_LargeSectors</SHORT-NAME>
+													<DEFINITION-REF DEST="ECUC-PARAM-CONF-CONTAINER-DEF">/MICROSAR/vMem_30_Traveo2Cyp01/vMem/vMemPublishedInformation/vMemFlash/vMemFlashRegion</DEFINITION-REF>
+													<PARAMETER-VALUES>
+														<ECUC-NUMERICAL-PARAM-VALUE>
+															<DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/MICROSAR/vMem_30_Traveo2Cyp01/vMem/vMemPublishedInformation/vMemFlash/vMemFlashRegion/vMemNumberOfSectors</DEFINITION-REF>
+															<VALUE>48</VALUE>
+														</ECUC-NUMERICAL-PARAM-VALUE>
+														<ECUC-NUMERICAL-PARAM-VALUE>
+															<DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/MICROSAR/vMem_30_Traveo2Cyp01/vMem/vMemPublishedInformation/vMemFlash/vMemFlashRegion/vMemStartAddress</DEFINITION-REF>
+															<VALUE>335544320</VALUE>
+														</ECUC-NUMERICAL-PARAM-VALUE>
+														<ECUC-NUMERICAL-PARAM-VALUE>
+															<DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/MICROSAR/vMem_30_Traveo2Cyp01/vMem/vMemPublishedInformation/vMemFlash/vMemFlashRegion/vMemPageSize</DEFINITION-REF>
+															<VALUE>4</VALUE>
+														</ECUC-NUMERICAL-PARAM-VALUE>
+														<ECUC-NUMERICAL-PARAM-VALUE>
+															<DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/MICROSAR/vMem_30_Traveo2Cyp01/vMem/vMemPublishedInformation/vMemFlash/vMemFlashRegion/vMemSectorSize</DEFINITION-REF>
+															<VALUE>2048</VALUE>
+														</ECUC-NUMERICAL-PARAM-VALUE>
+														<ECUC-TEXTUAL-PARAM-VALUE>
+															<DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/MICROSAR/vMem_30_Traveo2Cyp01/vMem/vMemPublishedInformation/vMemFlash/vMemFlashRegion/vMemFlashType</DEFINITION-REF>
+															<VALUE>WORK</VALUE>
+														</ECUC-TEXTUAL-PARAM-VALUE>
+													</PARAMETER-VALUES>
+												</ECUC-CONTAINER-VALUE>
+												<ECUC-CONTAINER-VALUE UUID="7de819a8-1927-43be-a813-ae42e98c4396">
+													<SHORT-NAME>SingleMode_WorkFlash_SmallSectors</SHORT-NAME>
+													<DEFINITION-REF DEST="ECUC-PARAM-CONF-CONTAINER-DEF">/MICROSAR/vMem_30_Traveo2Cyp01/vMem/vMemPublishedInformation/vMemFlash/vMemFlashRegion</DEFINITION-REF>
+													<PARAMETER-VALUES>
+														<ECUC-NUMERICAL-PARAM-VALUE>
+															<DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/MICROSAR/vMem_30_Traveo2Cyp01/vMem/vMemPublishedInformation/vMemFlash/vMemFlashRegion/vMemStartAddress</DEFINITION-REF>
+															<VALUE>335642624</VALUE>
+														</ECUC-NUMERICAL-PARAM-VALUE>
+														<ECUC-NUMERICAL-PARAM-VALUE>
+															<DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/MICROSAR/vMem_30_Traveo2Cyp01/vMem/vMemPublishedInformation/vMemFlash/vMemFlashRegion/vMemNumberOfSectors</DEFINITION-REF>
+															<VALUE>256</VALUE>
+														</ECUC-NUMERICAL-PARAM-VALUE>
+														<ECUC-NUMERICAL-PARAM-VALUE>
+															<DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/MICROSAR/vMem_30_Traveo2Cyp01/vMem/vMemPublishedInformation/vMemFlash/vMemFlashRegion/vMemSectorSize</DEFINITION-REF>
+															<VALUE>128</VALUE>
+														</ECUC-NUMERICAL-PARAM-VALUE>
+														<ECUC-NUMERICAL-PARAM-VALUE>
+															<DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/MICROSAR/vMem_30_Traveo2Cyp01/vMem/vMemPublishedInformation/vMemFlash/vMemFlashRegion/vMemPageSize</DEFINITION-REF>
+															<VALUE>4</VALUE>
+														</ECUC-NUMERICAL-PARAM-VALUE>
+														<ECUC-TEXTUAL-PARAM-VALUE>
+															<DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/MICROSAR/vMem_30_Traveo2Cyp01/vMem/vMemPublishedInformation/vMemFlash/vMemFlashRegion/vMemFlashType</DEFINITION-REF>
+															<VALUE>WORK</VALUE>
+														</ECUC-TEXTUAL-PARAM-VALUE>
+													</PARAMETER-VALUES>
+												</ECUC-CONTAINER-VALUE>
+												<ECUC-CONTAINER-VALUE UUID="087a5201-2c12-4c2c-82ad-2c1d660e1214">
+													<SHORT-NAME>DualMode_CodeFlash_LargeSectors_Low</SHORT-NAME>
+													<DEFINITION-REF DEST="ECUC-PARAM-CONF-CONTAINER-DEF">/MICROSAR/vMem_30_Traveo2Cyp01/vMem/vMemPublishedInformation/vMemFlash/vMemFlashRegion</DEFINITION-REF>
+													<PARAMETER-VALUES>
+														<ECUC-NUMERICAL-PARAM-VALUE>
+															<DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/MICROSAR/vMem_30_Traveo2Cyp01/vMem/vMemPublishedInformation/vMemFlash/vMemFlashRegion/vMemStartAddress</DEFINITION-REF>
+															<VALUE>268435456</VALUE>
+														</ECUC-NUMERICAL-PARAM-VALUE>
+														<ECUC-NUMERICAL-PARAM-VALUE>
+															<DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/MICROSAR/vMem_30_Traveo2Cyp01/vMem/vMemPublishedInformation/vMemFlash/vMemFlashRegion/vMemNumberOfSectors</DEFINITION-REF>
+															<VALUE>95</VALUE>
+														</ECUC-NUMERICAL-PARAM-VALUE>
+														<ECUC-NUMERICAL-PARAM-VALUE>
+															<DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/MICROSAR/vMem_30_Traveo2Cyp01/vMem/vMemPublishedInformation/vMemFlash/vMemFlashRegion/vMemSectorSize</DEFINITION-REF>
+															<VALUE>32768</VALUE>
+														</ECUC-NUMERICAL-PARAM-VALUE>
+														<ECUC-NUMERICAL-PARAM-VALUE>
+															<DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/MICROSAR/vMem_30_Traveo2Cyp01/vMem/vMemPublishedInformation/vMemFlash/vMemFlashRegion/vMemPageSize</DEFINITION-REF>
+															<VALUE>8</VALUE>
+														</ECUC-NUMERICAL-PARAM-VALUE>
+														<ECUC-TEXTUAL-PARAM-VALUE>
+															<DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/MICROSAR/vMem_30_Traveo2Cyp01/vMem/vMemPublishedInformation/vMemFlash/vMemFlashRegion/vMemFlashType</DEFINITION-REF>
+															<VALUE>CODE</VALUE>
+														</ECUC-TEXTUAL-PARAM-VALUE>
+													</PARAMETER-VALUES>
+												</ECUC-CONTAINER-VALUE>
+												<ECUC-CONTAINER-VALUE UUID="b5da68bc-a29f-47ee-8525-53fb6ebd3f2c">
+													<SHORT-NAME>DualMode_CodeFlash_LargeSectors_High</SHORT-NAME>
+													<DEFINITION-REF DEST="ECUC-PARAM-CONF-CONTAINER-DEF">/MICROSAR/vMem_30_Traveo2Cyp01/vMem/vMemPublishedInformation/vMemFlash/vMemFlashRegion</DEFINITION-REF>
+													<PARAMETER-VALUES>
+														<ECUC-NUMERICAL-PARAM-VALUE>
+															<DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/MICROSAR/vMem_30_Traveo2Cyp01/vMem/vMemPublishedInformation/vMemFlash/vMemFlashRegion/vMemStartAddress</DEFINITION-REF>
+															<VALUE>301989888</VALUE>
+														</ECUC-NUMERICAL-PARAM-VALUE>
+														<ECUC-NUMERICAL-PARAM-VALUE>
+															<DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/MICROSAR/vMem_30_Traveo2Cyp01/vMem/vMemPublishedInformation/vMemFlash/vMemFlashRegion/vMemNumberOfSectors</DEFINITION-REF>
+															<VALUE>95</VALUE>
+														</ECUC-NUMERICAL-PARAM-VALUE>
+														<ECUC-NUMERICAL-PARAM-VALUE>
+															<DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/MICROSAR/vMem_30_Traveo2Cyp01/vMem/vMemPublishedInformation/vMemFlash/vMemFlashRegion/vMemSectorSize</DEFINITION-REF>
+															<VALUE>32768</VALUE>
+														</ECUC-NUMERICAL-PARAM-VALUE>
+														<ECUC-NUMERICAL-PARAM-VALUE>
+															<DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/MICROSAR/vMem_30_Traveo2Cyp01/vMem/vMemPublishedInformation/vMemFlash/vMemFlashRegion/vMemPageSize</DEFINITION-REF>
+															<VALUE>8</VALUE>
+														</ECUC-NUMERICAL-PARAM-VALUE>
+														<ECUC-TEXTUAL-PARAM-VALUE>
+															<DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/MICROSAR/vMem_30_Traveo2Cyp01/vMem/vMemPublishedInformation/vMemFlash/vMemFlashRegion/vMemFlashType</DEFINITION-REF>
+															<VALUE>CODE</VALUE>
+														</ECUC-TEXTUAL-PARAM-VALUE>
+													</PARAMETER-VALUES>
+												</ECUC-CONTAINER-VALUE>
+												<ECUC-CONTAINER-VALUE UUID="786ff106-e814-41b0-a063-531163ddcead">
+													<SHORT-NAME>DualMode_CodeFlash_SmallSectors_Low</SHORT-NAME>
+													<DEFINITION-REF DEST="ECUC-PARAM-CONF-CONTAINER-DEF">/MICROSAR/vMem_30_Traveo2Cyp01/vMem/vMemPublishedInformation/vMemFlash/vMemFlashRegion</DEFINITION-REF>
+													<PARAMETER-VALUES>
+														<ECUC-NUMERICAL-PARAM-VALUE>
+															<DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/MICROSAR/vMem_30_Traveo2Cyp01/vMem/vMemPublishedInformation/vMemFlash/vMemFlashRegion/vMemStartAddress</DEFINITION-REF>
+															<VALUE>271548416</VALUE>
+														</ECUC-NUMERICAL-PARAM-VALUE>
+														<ECUC-NUMERICAL-PARAM-VALUE>
+															<DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/MICROSAR/vMem_30_Traveo2Cyp01/vMem/vMemPublishedInformation/vMemFlash/vMemFlashRegion/vMemNumberOfSectors</DEFINITION-REF>
+															<VALUE>16</VALUE>
+														</ECUC-NUMERICAL-PARAM-VALUE>
+														<ECUC-NUMERICAL-PARAM-VALUE>
+															<DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/MICROSAR/vMem_30_Traveo2Cyp01/vMem/vMemPublishedInformation/vMemFlash/vMemFlashRegion/vMemSectorSize</DEFINITION-REF>
+															<VALUE>8192</VALUE>
+														</ECUC-NUMERICAL-PARAM-VALUE>
+														<ECUC-NUMERICAL-PARAM-VALUE>
+															<DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/MICROSAR/vMem_30_Traveo2Cyp01/vMem/vMemPublishedInformation/vMemFlash/vMemFlashRegion/vMemPageSize</DEFINITION-REF>
+															<VALUE>8</VALUE>
+														</ECUC-NUMERICAL-PARAM-VALUE>
+														<ECUC-TEXTUAL-PARAM-VALUE>
+															<DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/MICROSAR/vMem_30_Traveo2Cyp01/vMem/vMemPublishedInformation/vMemFlash/vMemFlashRegion/vMemFlashType</DEFINITION-REF>
+															<VALUE>CODE</VALUE>
+														</ECUC-TEXTUAL-PARAM-VALUE>
+													</PARAMETER-VALUES>
+												</ECUC-CONTAINER-VALUE>
+												<ECUC-CONTAINER-VALUE UUID="2f3494ad-92b8-4cd3-b275-018d32a24616">
+													<SHORT-NAME>DualMode_CodeFlash_SmallSectors_High</SHORT-NAME>
+													<DEFINITION-REF DEST="ECUC-PARAM-CONF-CONTAINER-DEF">/MICROSAR/vMem_30_Traveo2Cyp01/vMem/vMemPublishedInformation/vMemFlash/vMemFlashRegion</DEFINITION-REF>
+													<PARAMETER-VALUES>
+														<ECUC-NUMERICAL-PARAM-VALUE>
+															<DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/MICROSAR/vMem_30_Traveo2Cyp01/vMem/vMemPublishedInformation/vMemFlash/vMemFlashRegion/vMemStartAddress</DEFINITION-REF>
+															<VALUE>305102848</VALUE>
+														</ECUC-NUMERICAL-PARAM-VALUE>
+														<ECUC-NUMERICAL-PARAM-VALUE>
+															<DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/MICROSAR/vMem_30_Traveo2Cyp01/vMem/vMemPublishedInformation/vMemFlash/vMemFlashRegion/vMemNumberOfSectors</DEFINITION-REF>
+															<VALUE>16</VALUE>
+														</ECUC-NUMERICAL-PARAM-VALUE>
+														<ECUC-NUMERICAL-PARAM-VALUE>
+															<DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/MICROSAR/vMem_30_Traveo2Cyp01/vMem/vMemPublishedInformation/vMemFlash/vMemFlashRegion/vMemSectorSize</DEFINITION-REF>
+															<VALUE>8192</VALUE>
+														</ECUC-NUMERICAL-PARAM-VALUE>
+														<ECUC-NUMERICAL-PARAM-VALUE>
+															<DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/MICROSAR/vMem_30_Traveo2Cyp01/vMem/vMemPublishedInformation/vMemFlash/vMemFlashRegion/vMemPageSize</DEFINITION-REF>
+															<VALUE>8</VALUE>
+														</ECUC-NUMERICAL-PARAM-VALUE>
+														<ECUC-TEXTUAL-PARAM-VALUE>
+															<DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/MICROSAR/vMem_30_Traveo2Cyp01/vMem/vMemPublishedInformation/vMemFlash/vMemFlashRegion/vMemFlashType</DEFINITION-REF>
+															<VALUE>CODE</VALUE>
+														</ECUC-TEXTUAL-PARAM-VALUE>
+													</PARAMETER-VALUES>
+												</ECUC-CONTAINER-VALUE>
+												<ECUC-CONTAINER-VALUE UUID="56e172ef-d95e-4813-8a22-fb1b84a7c6a1">
+													<SHORT-NAME>DualMode_WorkFlash_LargeSectors_Low</SHORT-NAME>
+													<DEFINITION-REF DEST="ECUC-PARAM-CONF-CONTAINER-DEF">/MICROSAR/vMem_30_Traveo2Cyp01/vMem/vMemPublishedInformation/vMemFlash/vMemFlashRegion</DEFINITION-REF>
+													<PARAMETER-VALUES>
+														<ECUC-NUMERICAL-PARAM-VALUE>
+															<DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/MICROSAR/vMem_30_Traveo2Cyp01/vMem/vMemPublishedInformation/vMemFlash/vMemFlashRegion/vMemNumberOfSectors</DEFINITION-REF>
+															<VALUE>24</VALUE>
+														</ECUC-NUMERICAL-PARAM-VALUE>
+														<ECUC-NUMERICAL-PARAM-VALUE>
+															<DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/MICROSAR/vMem_30_Traveo2Cyp01/vMem/vMemPublishedInformation/vMemFlash/vMemFlashRegion/vMemStartAddress</DEFINITION-REF>
+															<VALUE>335544320</VALUE>
+														</ECUC-NUMERICAL-PARAM-VALUE>
+														<ECUC-NUMERICAL-PARAM-VALUE>
+															<DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/MICROSAR/vMem_30_Traveo2Cyp01/vMem/vMemPublishedInformation/vMemFlash/vMemFlashRegion/vMemPageSize</DEFINITION-REF>
+															<VALUE>4</VALUE>
+														</ECUC-NUMERICAL-PARAM-VALUE>
+														<ECUC-NUMERICAL-PARAM-VALUE>
+															<DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/MICROSAR/vMem_30_Traveo2Cyp01/vMem/vMemPublishedInformation/vMemFlash/vMemFlashRegion/vMemSectorSize</DEFINITION-REF>
+															<VALUE>2048</VALUE>
+														</ECUC-NUMERICAL-PARAM-VALUE>
+														<ECUC-TEXTUAL-PARAM-VALUE>
+															<DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/MICROSAR/vMem_30_Traveo2Cyp01/vMem/vMemPublishedInformation/vMemFlash/vMemFlashRegion/vMemFlashType</DEFINITION-REF>
+															<VALUE>WORK</VALUE>
+														</ECUC-TEXTUAL-PARAM-VALUE>
+													</PARAMETER-VALUES>
+												</ECUC-CONTAINER-VALUE>
+												<ECUC-CONTAINER-VALUE UUID="7a31e989-f8c5-48b1-a9d6-7039a8f5a964">
+													<SHORT-NAME>DualMode_WorkFlash_LargeSectors_High</SHORT-NAME>
+													<DEFINITION-REF DEST="ECUC-PARAM-CONF-CONTAINER-DEF">/MICROSAR/vMem_30_Traveo2Cyp01/vMem/vMemPublishedInformation/vMemFlash/vMemFlashRegion</DEFINITION-REF>
+													<PARAMETER-VALUES>
+														<ECUC-NUMERICAL-PARAM-VALUE>
+															<DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/MICROSAR/vMem_30_Traveo2Cyp01/vMem/vMemPublishedInformation/vMemFlash/vMemFlashRegion/vMemNumberOfSectors</DEFINITION-REF>
+															<VALUE>24</VALUE>
+														</ECUC-NUMERICAL-PARAM-VALUE>
+														<ECUC-NUMERICAL-PARAM-VALUE>
+															<DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/MICROSAR/vMem_30_Traveo2Cyp01/vMem/vMemPublishedInformation/vMemFlash/vMemFlashRegion/vMemStartAddress</DEFINITION-REF>
+															<VALUE>352321536</VALUE>
+														</ECUC-NUMERICAL-PARAM-VALUE>
+														<ECUC-NUMERICAL-PARAM-VALUE>
+															<DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/MICROSAR/vMem_30_Traveo2Cyp01/vMem/vMemPublishedInformation/vMemFlash/vMemFlashRegion/vMemPageSize</DEFINITION-REF>
+															<VALUE>4</VALUE>
+														</ECUC-NUMERICAL-PARAM-VALUE>
+														<ECUC-NUMERICAL-PARAM-VALUE>
+															<DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/MICROSAR/vMem_30_Traveo2Cyp01/vMem/vMemPublishedInformation/vMemFlash/vMemFlashRegion/vMemSectorSize</DEFINITION-REF>
+															<VALUE>2048</VALUE>
+														</ECUC-NUMERICAL-PARAM-VALUE>
+														<ECUC-TEXTUAL-PARAM-VALUE>
+															<DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/MICROSAR/vMem_30_Traveo2Cyp01/vMem/vMemPublishedInformation/vMemFlash/vMemFlashRegion/vMemFlashType</DEFINITION-REF>
+															<VALUE>WORK</VALUE>
+														</ECUC-TEXTUAL-PARAM-VALUE>
+													</PARAMETER-VALUES>
+												</ECUC-CONTAINER-VALUE>
+												<ECUC-CONTAINER-VALUE UUID="4945686f-8765-4e30-9664-e934e88a7f42">
+													<SHORT-NAME>DualMode_WorkFlash_SmallSectors_Low</SHORT-NAME>
+													<DEFINITION-REF DEST="ECUC-PARAM-CONF-CONTAINER-DEF">/MICROSAR/vMem_30_Traveo2Cyp01/vMem/vMemPublishedInformation/vMemFlash/vMemFlashRegion</DEFINITION-REF>
+													<PARAMETER-VALUES>
+														<ECUC-NUMERICAL-PARAM-VALUE>
+															<DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/MICROSAR/vMem_30_Traveo2Cyp01/vMem/vMemPublishedInformation/vMemFlash/vMemFlashRegion/vMemStartAddress</DEFINITION-REF>
+															<VALUE>335593472</VALUE>
+														</ECUC-NUMERICAL-PARAM-VALUE>
+														<ECUC-NUMERICAL-PARAM-VALUE>
+															<DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/MICROSAR/vMem_30_Traveo2Cyp01/vMem/vMemPublishedInformation/vMemFlash/vMemFlashRegion/vMemNumberOfSectors</DEFINITION-REF>
+															<VALUE>128</VALUE>
+														</ECUC-NUMERICAL-PARAM-VALUE>
+														<ECUC-NUMERICAL-PARAM-VALUE>
+															<DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/MICROSAR/vMem_30_Traveo2Cyp01/vMem/vMemPublishedInformation/vMemFlash/vMemFlashRegion/vMemSectorSize</DEFINITION-REF>
+															<VALUE>128</VALUE>
+														</ECUC-NUMERICAL-PARAM-VALUE>
+														<ECUC-NUMERICAL-PARAM-VALUE>
+															<DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/MICROSAR/vMem_30_Traveo2Cyp01/vMem/vMemPublishedInformation/vMemFlash/vMemFlashRegion/vMemPageSize</DEFINITION-REF>
+															<VALUE>4</VALUE>
+														</ECUC-NUMERICAL-PARAM-VALUE>
+														<ECUC-TEXTUAL-PARAM-VALUE>
+															<DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/MICROSAR/vMem_30_Traveo2Cyp01/vMem/vMemPublishedInformation/vMemFlash/vMemFlashRegion/vMemFlashType</DEFINITION-REF>
+															<VALUE>WORK</VALUE>
+														</ECUC-TEXTUAL-PARAM-VALUE>
+													</PARAMETER-VALUES>
+												</ECUC-CONTAINER-VALUE>
+												<ECUC-CONTAINER-VALUE UUID="baaf6ca7-852e-4a57-877d-c562c0cd9025">
+													<SHORT-NAME>DualMode_WorkFlash_SmallSectors_High</SHORT-NAME>
+													<DEFINITION-REF DEST="ECUC-PARAM-CONF-CONTAINER-DEF">/MICROSAR/vMem_30_Traveo2Cyp01/vMem/vMemPublishedInformation/vMemFlash/vMemFlashRegion</DEFINITION-REF>
+													<PARAMETER-VALUES>
+														<ECUC-NUMERICAL-PARAM-VALUE>
+															<DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/MICROSAR/vMem_30_Traveo2Cyp01/vMem/vMemPublishedInformation/vMemFlash/vMemFlashRegion/vMemStartAddress</DEFINITION-REF>
+															<VALUE>352370688</VALUE>
+														</ECUC-NUMERICAL-PARAM-VALUE>
+														<ECUC-NUMERICAL-PARAM-VALUE>
+															<DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/MICROSAR/vMem_30_Traveo2Cyp01/vMem/vMemPublishedInformation/vMemFlash/vMemFlashRegion/vMemNumberOfSectors</DEFINITION-REF>
+															<VALUE>128</VALUE>
+														</ECUC-NUMERICAL-PARAM-VALUE>
+														<ECUC-NUMERICAL-PARAM-VALUE>
+															<DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/MICROSAR/vMem_30_Traveo2Cyp01/vMem/vMemPublishedInformation/vMemFlash/vMemFlashRegion/vMemSectorSize</DEFINITION-REF>
+															<VALUE>128</VALUE>
+														</ECUC-NUMERICAL-PARAM-VALUE>
+														<ECUC-NUMERICAL-PARAM-VALUE>
+															<DEFINITION-REF DEST="ECUC-INTEGER-PARAM-DEF">/MICROSAR/vMem_30_Traveo2Cyp01/vMem/vMemPublishedInformation/vMemFlash/vMemFlashRegion/vMemPageSize</DEFINITION-REF>
+															<VALUE>4</VALUE>
+														</ECUC-NUMERICAL-PARAM-VALUE>
+														<ECUC-TEXTUAL-PARAM-VALUE>
+															<DEFINITION-REF DEST="ECUC-ENUMERATION-PARAM-DEF">/MICROSAR/vMem_30_Traveo2Cyp01/vMem/vMemPublishedInformation/vMemFlash/vMemFlashRegion/vMemFlashType</DEFINITION-REF>
+															<VALUE>WORK</VALUE>
+														</ECUC-TEXTUAL-PARAM-VALUE>
+													</PARAMETER-VALUES>
+												</ECUC-CONTAINER-VALUE>
+											</SUB-CONTAINERS>
+										</ECUC-CONTAINER-VALUE>
+									</SUB-CONTAINERS>
+								</ECUC-CONTAINER-VALUE>
+							</CONTAINERS>
+						</ECUC-MODULE-CONFIGURATION-VALUES>
+					</ELEMENTS>
+				</AR-PACKAGE>
+			</AR-PACKAGES>
+		</AR-PACKAGE>
+	</AR-PACKAGES>
+</AUTOSAR>

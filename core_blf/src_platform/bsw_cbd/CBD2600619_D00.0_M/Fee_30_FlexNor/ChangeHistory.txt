@@ -1,0 +1,122 @@
+/**********************************************************************************************************************
+ *  REVISION HISTORY
+ *
+ *  This file contains the revision history of the component implementation and all related artifacts.
+ *  The revision history covers all released version of the component. If you have received a development version of
+ *  this component, the changes made in the development version are not referenced herein.
+ *
+ *  Legend of Columns:
+ *
+ *    I - Implementation
+ *    G - Generator
+ *    D - Documentation & Technical Reference
+ *    T - Test Implementation
+ *    S - Specification
+ *    B - Build-Artifacts
+ *
+ *  Legend of Cells:
+ *
+ *    X - Artifact is affected by the change.
+ *    - - Artifact is not affected by the change.
+ *
+ *  -------------------------------------------------------------------------------------------------------------------
+ *  Version              Date           Author          I G D T S B       Change Id           Description
+ *  -------------------------------------------------------------------------------------------------------------------
+ *  main-38              2023-11-10     vireno          X X X X X X       MEMSLP-8840         FeeFlexNor: BaseMigration
+ *  main-38              2023-11-20     virhdr          X X - X X -       MEMSLP-8694         Fee FlexNor writes into non empty memory due to wrong alignment calculation
+ *  main-39              2023-11-21     twagenpfeil     - X - - - -       MEMSLP-8628         Fee FlexNor generator issues an value out of range error for the sector start address
+ *  main-40              2023-11-29     twagenpfeil     X - - - - -       MEMSLP-8097         Check all interfaces contracts of the Fee FlexNors structural units
+ *  main-41              2023-12-01     virhdr          X X - X X -       ESCAN00115697       Fee writes non empty memory due to wrong next free address calculation
+ *  main-42              2023-12-04     virhdr          X X - - - -       ESCAN00115886       Compiler error: Expected a ";" in Fee_30_FlexNor_Types.h
+ *  main-42              2023-12-05     virhdr          X X - X X -       ESCAN00115296       Fee FlexNor: Compiler error: Fls.h: No such file or directory
+ *  main-42              2023-12-08     twagenpfeil     X X - X - -       ESCAN00115754       Fee FlexNor gets stuck in a Persist Lookuptable job and stays pending until reset
+ *  main-43              2023-12-15     twagenpfeil     X - X X X -       MEMSLP-9060         Fee FlexNor: Performe GC in case properties flip to valid
+ *  main-44              2023-12-16     twagenpfeil     - X - X - -       ESCAN00115939       Fee FlexNor: Fix MemAcc Support Issues
+ *  main-45              2023-12-18     twagenpfeil     X X X X - -       MEMSLP-8743         FeeFlexNor: Support AUTOSAR MemAcc
+ *  main-46              2023-12-20     vireno          X X X X X -       MEMSLP-8743         Fix History
+ *  main-46              2023-12-20     vireno          X X X X X -       ESCAN00115939       Fee FlexNor: Fix MemAcc Support Issues
+ *  3.01.00              -              -               - - - - - -       -                   SemVer release 3.01.00 based on main-46 
+ *  main-47              2024-02-07     twagenpfeil     X X - X X -       MEMSLP-9168         Fee FlexNor: Improve calculation of copy score
+ *  main-47              2024-02-08     twagenpfeil     X X X X - -       MEMSLP-9239         FeeFlexNor: Update to ASR 23-11 and providing backward compatibility for older Releases
+ *  main-48              2024-02-08     vireno          - - - - - -       MEMSLP-9239         Update to ASR 23-11 and providing backward compatibility for older Releases
+ *  3.02.00              -              -               - - - - - -       -                   SemVer release 3.02.00 based on main-48 
+ *  main-49              2024-02-27     sschumacher     X X X - X X       CIB-3113            migration component copier
+ *  main-49              2024-03-12     twagenpfeil     X X - X X -       MEMSLP-8167         Fee reads erased memory - SecureChunk and Chunk
+ *  main-49              2024-03-13     twagenpfeil     X X X X X -       MEMSLP-9080         Fee FlexNor shall check Block ID within chunk search
+ *  main-50              2024-03-18     vireno          X - - - - -       MEMSLP-9080         Fee FlexNor shall check Block ID within chunk search
+ *  3.03.00              -              -               - - - - - -       -                   SemVer release 3.03.00 based on main-50 
+ *  main-51              2024-05-17     twagenpfeil     X X - X X -       MEMSLP-9416         Fee FlexNor: Prevent recovery GC from increasing the sector Id span over the acceptable limit
+ *  main-51              2024-05-17     twagenpfeil     X X - X X -       ESCAN00116994       Fee FlexNor: Fee does not check sector validity in chunks address calculation
+ *  main-51              2024-05-17     twagenpfeil     X X - X X -       ESCAN00117115       Fee FlexNor: Generator does not synchronize NvM blocks
+ *  3.04.00              -              -               - - - - - -       -                   SemVer release 3.04.00 based on main-51 
+ *  main-52              2024-06-18     twagenpfeil     X X - - - -       ESCAN00117400       Fee FlexNor: Fix compiler warning "Nonstandard extension used: non-constant aggregate initializer"
+ *  main-52              2024-06-28     twagenpfeil     X X X X X -       MEMSLP-8962         Fee FlexNor - GC shall set instance count to one
+ *  main-52              2024-07-01     vireno          - - - - - -       MEMSLP-8962         Version Fix
+ *  main-52              2024-07-01     vireno          - - - - - -       ESCAN00117400       Fee FlexNor: Fix compiler warning "Nonstandard extension used: non-constant aggregate initializer"
+ *  3.05.00              -              -               - - - - - -       -                   SemVer release 3.05.00 based on main-52 
+ *  main-53              2024-07-02     twagenpfeil     X X - X - -       ESCAN00117592       Fee FlexNor: Fix endless loop due to linkvalidity
+ *  3.05.01              -              -               - - - - - -       -                   SemVer release 3.05.01 based on main-53 
+ *  main-54              2024-07-11     vweiss          X - - X X -       MEMSLP-9072         MemSim Integration into Testsuite
+ *  main-54              2024-07-30     twagenpfeil     X X X X X -       MEMSLP-9423         Fee FlexNor - Migrate chunk reallocation from memorystack repository
+ *  main-54              2024-08-21     twagenpfeil     X - - X X -       MEMSLP-9859         Fee FlexNor - Analyse all reset scenarios methodically
+ *  main-54              2024-09-10     twagenpfeil     X - X X X -       MEMSLP-9997         Fee FlexNor Suspend and Resume Fls Writes
+ *  main-54              2024-09-10     vireno          X - - X - -       ESCAN00118094       Fee FlexNor Blocks are lost in case a garbage collection is interrupted at first by a cancel and then by an ECU reset
+ *  main-54              2024-09-13     twagenpfeil     X - X X X -       MEMSLP-9999         Fee FlexNor APIs to suspend internal jobs
+ *  main-54              2024-09-10     vireno          X - - X - -       ESCAN00118212       Fee FlexNor gets stuck in an endless loop in case resets occur very frequently
+ *  3.06.00              -              -               - - - - - -       -                   SemVer release 3.06.00 based on main-54 
+ *  main-55              2024-10-01     speter          X X X - X -       MEMSLP-9941         FeeFlexNor - Improve validator for total configured block size
+ *  3.07.00              -              -               - - - - - -       -                   SemVer release 3.07.00 based on main-55 
+ *  main-56              2024-10-07     vireno          X X - X X -       MEMSLP-10187        Fix erase cycle counter calculation
+ *  main-56              2024-10-17     twagenpfeil     X - X X X -       MEMSLP-10003        FeeFlexNor GetEraseCycleCounter
+ *  3.08.00              -              -               - - - - - -       -                   SemVer release 3.08.00 based on main-56 
+ *  main-57              2024-10-31     twagenpfeil     X X - X X -       MEMSLP-9994         Fee Flexnor - Chunk search shall check the direction of the link to avoid loops
+ *  main-57              2024-11-04     twagenpfeil     X - - X - -       MEMSLP-10081        FeeFlexNor - Improve SourceId handling
+ *  main-57              2024-10-17     vireno          - X - - - -       ESCAN00118670       Add a validator which checks that all logical sectors have the same size
+ *  main-57              2024-10-17     vireno          - X - - - -       ESCAN00118574       Validator inconsistency issue RT00002 due to missing partition layout defref
+ *  main-57              2024-12-02     virmlb          - X - - - -       MEMSLP-10296        Validator that blocks fit into logical sector
+ *  main-57              2024-10-17     vireno          X - - - - -       ESCAN00118192       Compiler warning: Enumerated type mixed with another type
+ *  main-57              2024-12-11     speter          X - - X - -       ESCAN00118418       Out of bounds write access during chunk reallocation
+ *  main-58              2025-01-13     vireno          X X X X X -       ESCAN00119003       Fee gets stuck in an endless loop in case invalid sector exists
+ *  3.09.00              -              -               - - - - - -       -                   SemVer release 3.09.00 based on main-58 
+ *  main-59              2025-01-24     vireno          X X X X X X       MEMSLP-10399        Persist LookupTable automatically
+ *  main-60              2025-01-24     vireno          - - - X - -       ESCAN00118607       Fee FlexNor gets stuck in an endless loop in case Garbage Collection fails several times
+ *  4.00.00              -              -               - - - - - -       -                   SemVer release 4.00.00 based on main-60 
+ *  main-61              2025-01-28     vireno          - - - X - -       ESCAN00119214       Low startup performance due to broken chunk link chain
+ *  main-61              2025-01-29     vireno          - - - X - -       ESCAN00119235       Fee loses block in case garbage collection retries exceed
+ *  main-61              2025-01-31     vireno          X X - X X -       ESCAN00119276       Fee_30_FlexNor_GetJobResult() can return MEMIF_JOB_OK even if the Fee is busy
+ *  4.00.01              -              -               - - - - - -       -                   SemVer release 4.00.01 based on main-61 
+ *  main-62              2025-02-18     vireno          X X - X X -       MEMSLP-11074        Ignore sector with doubled id
+ *  main-63              2025-02-18     vireno          - - - X - -       MEMSLP-11074        Ignore sector with doubled id
+ *  4.00.02              -              -               - - - - - -       -                   SemVer release 4.00.02 based on main-63 
+ *  main-64              2025-02-20     vireno          X X - - - -       MEMSLP-11137        ConsistencyRT00002 error occurs in validator FeeNvMBlockSync
+ *  4.00.03              -              -               - - - - - -       -                   SemVer release 4.00.03 based on main-64 
+ *  main-65              2025-03-07     speter          X X X X - -       ESCAN00119446       Fee overwrites memory when reading lookup table to RAM
+ *  4.00.04              -              -               - - - - - -       -                   SemVer release 4.00.04 based on main-65 
+ *  main-66              2025-03-24     vireno          X X X X X -       MEMSLP-10928        LookupTable Performance Optimization
+ *  main-67              2025-03-31     twagenpfeil     X - - X X -       MEMSLP-11247        FeeFlexNor Extend Testing Step 1: Overall Preparation and reset Corruptions
+ *  main-67              2025-04-07     twagenpfeil     X - X X X -       MEMSLP-11390        Check sector seal marker in case commit marker is invalid
+ *  4.01.00              -              -               - - - - - -       -                   SemVer release 4.01.00 based on main-67 
+ *  main-68              2025-04-09     twagenpfeil     X - X X X -       MEMSLP-11249        FeeFlexNor Extend Testing Step 2: Write Fails (without corruption effects)
+ *  main-68              2025-04-23     twagenpfeil     - X - X - -       MEMSLP-10536        FeeFlexNor: CFG6 Migration
+ *  main-68              2025-04-28     speter          X X X X X -       MEMSLP-11251        FeeFlexNor Extend Testing Step 3: Write Rejects
+ *  main-69              2025-04-29     twagenpfeil     X - - X - -       MEMSLP-11480        Fee FlexNor: Startup flag is reset for wrong partition
+ *  main-69              2025-04-30     twagenpfeil     - - - X X -       MEMSLP-11254        FeeFlexNor Extend Testing Step 4: Cancel write (without corruptions)
+ *  main-69              2025-05-16     twagenpfeil     X X - X - -       MEMSLP-11375        Don't try to process a job in case the Fee is uninitialized
+ *  main-69              2025-05-23     twagenpfeil     - - - X X -       MEMSLP-11256        FeeFlexNor Extend Testing Step 5: Cancel Read
+ *  main-69              2025-05-23     twagenpfeil     - X - - - -       MEMSLP-11371        FlexNor: Improve FeeMemAccAlignmentCheck
+ *  4.01.01              -              -               - - - - - -       -                   SemVer release 4.01.01 based on main-69 
+ *  main-70              2025-05-28     twagenpfeil     X X X X X -       MEMSLP-11499        Fee FlexNor: Implement an exception handler
+ *  main-70              2025-06-16     twagenpfeil     X X X X X -       MEMSLP-11628        Fee FlexNor: Raise an exception in case the erase cycle counter exceeds its limit
+ *  main-70              2025-07-29     vireno          X - - X X -       MEMSLP-11624        Raise an exception in case the marker validity is inconsistent or a flash access check fails
+ *  main-70              2025-08-01     vireno          X X - X X -       ESCAN00120614       Space GC shall not exceed the sector ID span limit
+ *  4.02.00              -              -               - - - - - -       -                   SemVer release 4.02.00 based on main-70 
+ *  main-71              2025-09-17     vireno          X - X X X -       MEMSLP-11626        Raise an exception in case a read fail occured
+ *  main-71              2025-09-23     vireno          X X - X X -       MEMAB-583           Fee FlexNor: Restart a GC in case a recovery GC is requested for the target sector
+ *  4.03.00              -              -               - - - - - -       -                   SemVer release 4.03.00 based on main-71 
+ *  main-72              2025-10-22     vireno          X X X X X -       MEMAB-28            Implement the read and buffer alignment support
+ *  4.04.00              -              -               - - - - - -       -                   SemVer release 4.04.00 based on main-72 
+ *  main-73              2025-10-30     vireno          - X - - - -       ESCAN00121025       CFG6 Fix auto solving action creates an unwanted block by accident
+ *  main-73              2025-11-05     vireno          - X - - - -       ESCAN00121025       CFG5 Fix auto solving action creates an unwanted block by accident
+ *  main-73              2025-11-07     virmlb          X X - X - -       MEMAB-792           CFG6 Fix Linter Findings And Apply Autoformat
+ *  4.04.01              -              -               - - - - - -       -                   SemVer release 4.04.01 based on main-73 
+ *********************************************************************************************************************/

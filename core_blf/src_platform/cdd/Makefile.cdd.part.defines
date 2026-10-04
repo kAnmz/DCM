@@ -1,0 +1,20 @@
+###############################################################################
+# Makefile.cdd.part.defines
+###############################################################################
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #
+# Complex Drivers                                                             #
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #
+# Can be overwritten in main makefile
+ifeq ($(CDD_MODULE_LIST_PRJ),.)
+  CDD_MODULE_LIST_PRJ=$(shell find $(CDD_DIR)/ -maxdepth 1 -type d |rev |cut -d '/' -f 1 |rev |grep -vE "BCMIo|cdd" |tr -d " " |tr -s '\n' ' ')
+endif
+
+ifneq ($(CDD_MODULE_LIST_PRJ),-)
+include $(foreach _M,$(CDD_MODULE_LIST_PRJ),$(CDD_DIR)/$(_M)/Makefile.$(_M).part.defines)
+endif
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #
+# Marelli BCM IO                                                              #
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #
+#include $(CDD_BCMIO_DIR)/Makefile.BCMIo.part.defines

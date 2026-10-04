@@ -1,0 +1,82 @@
+/******************************************************************************/
+/*@F_NAME:          star_ResetInitSct.c                                       */
+/*@F_PURPOSE:       Application start up module and stack statement           */
+/*                  if RTOS                                                   */
+/*@F_CREATED_BY:    Vincent RIOUAL                                            */
+/*@F_CREATION_DATE: 13/11/02                                                  */
+/*@F_LANGUAGE :     ANSI C / ASM                                              */
+/*@F_MPROC_TYPE:    MOTOROLA MC9S12H / COSMIC toolchain                       */
+/*                  NEC V850  / TX49  / (RENESAS) RL78                                       */
+/*                  FSL IMX53                                                 */
+/************************************** (C) Copyright 2011 Magneti Marelli ****/
+
+/*********************************************************/
+/*                                                       */
+/* Sources to init all sections (redirected ISR / DTC)   */
+/*                                                       */
+/*********************************************************/
+
+/*_____ I N C L U D E - F I L E S ____________________________________________*/
+
+#include "syst.h"
+#include "star.h"
+#include "star_config.h"
+
+
+#ifdef __RTOS__
+
+/* RTOS do not define stack, OS-Vector yes */
+
+/* for BLF and RTOS , stack defined in BOOT */
+/* but for all new processor define it here */
+  #if defined (C_COMP_COSMIC_MC9S12) || defined (C_COMP_COSMIC_MC9S08)
+    #pragma section [BSS_STACK]
+  #endif /* C_COMP_COSMIC_MC9S12 || C_COMP_COSMIC_MC9S08 */
+
+  #if defined(C_COMP_GHS_TX49)  \
+    || defined(C_COMP_GHS_V850) \
+    || defined(C_COMP_GHS_ARM)
+  #pragma ghs startdata
+  #pragma ghs section bss=".stack"
+  #endif /* C_COMP_GHS_TX49 || C_COMP_GHS_V850 || C_COMP_GHS_ARM */
+  
+  #if defined(C_COMP_IAR_RL78)
+  #pragma dataseg=BSS_STACK
+  #endif /* C_COMP_IAR_RL78 */
+
+  __ROOT__ __NO_INIT__ ubyte STAR_Stack[STAR_STACK_SIZE];
+   
+  #if defined(C_COMP_IAR_RL78)
+  #pragma dataseg=default
+  #endif /* C_COMP_IAR_RL78 */
+  
+  #if defined(C_COMP_GHS_TX49)  \
+    || defined(C_COMP_GHS_V850) \
+    || defined(C_COMP_GHS_ARM)
+  #pragma ghs section bss=default
+  #pragma ghs enddata
+  #endif /* C_COMP_GHS_TX49 || C_COMP_GHS_V850 || C_COMP_GHS_ARM */
+
+  #if defined (C_COMP_COSMIC_MC9S12) || defined (C_COMP_COSMIC_MC9S08)
+    #pragma section []
+  #endif /*  C_COMP_COSMIC_MC9S12 || C_COMP_COSMIC_MC9S08  */
+
+#endif /* __RTOS__ */
+
+
+/* _____ L O C A L - M A C R O S _____________________________________________*/
+
+
+/*______ I M P O R T - F U N C T I O N S - P R O T O T Y P E S _______________*/
+
+
+/* _____ L O C A L - F U N C T I O N S - P R O T O T Y P E S _________________*/
+
+
+/* _____ G L O B A L - F U N C T I O N S _____________________________________*/
+
+
+/*_____ L O C A L - F U N C T I O N S ________________________________________*/
+
+
+/*_____ E N D _____ (Star_ResetInitSct.cas) __________________________________*/

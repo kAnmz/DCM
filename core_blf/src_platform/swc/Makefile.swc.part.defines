@@ -1,0 +1,74 @@
+###############################################################################
+# Makefile.swc.part.defines
+###############################################################################
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #
+# SWC                                                                         #
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #
+# Can be overwritten in main makefile
+ifeq ($(SWC_MODULE_LIST_PRJ),.)
+  SWC_MODULE_LIST_PRJ=$(shell find $(SWC_DIR)/ -maxdepth 1 -type d |rev |cut -d '/' -f 1 |rev |grep -vE "STARTUP|ISDL|FFE|FFH|NVM|WDFC|WDFP|WDFS" |tr -d " " |tr -s '\n' ' ')
+endif
+
+ifneq ($(SWC_MODULE_LIST_PRJ),-)
+include $(foreach _M,$(SWC_MODULE_LIST_PRJ),$(SWC_DIR)/$(_M)/Makefile.$(_M).part.defines)
+endif
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #
+# StarUp                                                                      #
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #
+ifeq ($(SWC_STARTUP_EXCLUDE_ALL),)
+  SWC_STARTUP_EXCLUDE_ALL = 0
+endif
+
+ifneq ($(SWC_STARTUP_EXCLUDE_ALL),1)
+
+  ifeq ($(strip $(TARGET_COMPONENT)),$(HSM_COMP_NAME))
+    include $(SWC_DIR)/STARTUP/Makefile.STARTUP_cm0plus.part.defines
+  else
+    include $(SWC_DIR)/STARTUP/Makefile.STARTUP_cm4.part.defines
+  endif
+
+endif
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #
+# Infineon SDL                                                                #
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #
+# Can be overwritten in main makefile
+ifeq ($(SWC_ISDL_EXCLUDE_ALL),)
+  SWC_ISDL_EXCLUDE_ALL = 0
+endif
+
+ifneq ($(SWC_ISDL_EXCLUDE_ALL),1)
+
+  ifeq ($(strip $(TARGET_COMPONENT)),$(HSM_COMP_NAME))
+    -include $(SWC_DIR)/ISDL/Makefile.ISDL_cm0plus.part.defines
+  else
+    -include $(SWC_DIR)/ISDL/Makefile.ISDL_cm4.part.defines
+  endif
+
+endif
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #
+# WDF                                                                         #
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #
+# Can be overwritten in main makefile
+ifeq ($(SWC_WDF_EXCLUDE_ALL),)
+  SWC_WDF_EXCLUDE_ALL = 1
+endif
+
+ifneq ($(SWC_WDF_EXCLUDE_ALL),1)
+
+  ifeq ($(WDF_MODULE_LIST_PRJ),)
+    WDF_MODULE_LIST_PRJ=FFE        \
+                        FFH        \
+                        NVM        \
+                        WDFC       \
+                        WDFP       \
+                        WDFS       \
+						EOLS
+  endif
+
+  include $(foreach _M,$(WDF_MODULE_LIST_PRJ),$(WDF_DIR)/$(_M)/Makefile.$(_M).part.defines)
+
+endif

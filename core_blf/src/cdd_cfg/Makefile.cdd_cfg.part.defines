@@ -1,0 +1,17 @@
+###############################################################################
+# Makefile.cdd_cfg.part.defines
+###############################################################################
+
+ifeq ($(SRC_INCLUDE_CDD_CFG),1)
+
+# Source - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -#
+SRC_DIR += $(CDDCFG_DIR)/sources
+SRC_DIR += $(CDDCFG_DIR)/sources/BCMIo
+
+# Header - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -#
+INCLUDES += $(addprefix -I, $(CDDCFG_DIR)/include)
+INCLUDES += $(addprefix -I, $(CDDCFG_DIR)/include/BCMIo)
+INCLUDES += $(addprefix -I, $(CDDCFG_DIR)/public_inc)
+INCLUDES += $(addprefix -I, $(CDDCFG_DIR)/public_inc/BCMIo)
+
+endif

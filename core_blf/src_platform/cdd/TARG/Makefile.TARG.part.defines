@@ -1,0 +1,7 @@
+###############################################################################
+# Makefile.TARG.part.defines
+# Source - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -#
+SRC_DIR += $(CDD_DIR)/TARG/Sources
+# Header - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -#
+INCLUDES += $(addprefix -I, $(CDD_DIR)/TARG/PublicInt)
+INCLUDES += $(addprefix -I, $(CDD_DIR)/TARG/PublicInt/tviibe1m)

@@ -1,0 +1,194 @@
+/**********************************************************************************************************************
+ *  REVISION HISTORY
+ *
+ *  This file contains the revision history of the component implementation and all related artifacts.
+ *  The revision history covers all released version of the component. If you have received a development version of
+ *  this component, the changes made in the development version are not referenced herein.
+ *
+ *  Legend of Columns:
+ *
+ *    I - Implementation
+ *    G - Generator
+ *    D - Documentation & Technical Reference
+ *    T - Test Implementation
+ *    S - Specification
+ *    B - Build-Artifacts
+ *
+ *  Legend of Cells:
+ *
+ *    X - Artifact is affected by the change.
+ *    - - Artifact is not affected by the change.
+ *
+ *  -------------------------------------------------------------------------------------------------------------------
+ *  Version              Date           Author          I G D T S B       Change Id           Description
+ *  -------------------------------------------------------------------------------------------------------------------
+ *  main-1               2023-11-02     smacht          X X X X X X       MEMSLP-8919         Gitlab Migration
+ *  main-2               2023-11-10     smacht          X - - X X -       MEMSLP-8395         Delay finalization of NvM_WriteAll as long as MemIf broadcast is BUSY
+ *  main-2               2023-11-10     lheuberger      X - - X X -       MEMSLP-8393         support PRAM API as wrappers
+ *  main-2               2023-11-21     viroto          - - - - - -       CIA-631             fix almplus descriptor safety manual settings
+ *  main-2               2023-12-12     group_433_bot_8918be7e278d67622ccce09cfb7f4951 - X X - - -       CIA-488             Renovate Update config/common digest to 1d5a7c7
+ *  main-2               2023-12-15     lheuberger      X X - X X -       MEMSLP-8381         Support temporary buffer pointers
+ *  main-2               2023-12-18     smacht          X X - X X -       MEMSLP-8977         Rework Generator with CSL usage
+ *  main-2               2023-12-22     smacht          - - - - X -       MEMSLP-6916         Multicore communication concept
+ *  main-2               2024-01-19     smacht          X X - X X -       MEMSLP-9129         Maintenance after CSL rework
+ *  main-2               2024-01-19     smacht          X X - X X -       MEMSLP-8019         Implement single block job end notifications
+ *  main-2               2024-01-23     smacht          X X - X X -       MEMSLP-9050         Migrate to new ALM package
+ *  main-1               2024-01-24     oebas           - - - - - -       TAR-41134           Fix descriptor to fix the release
+ *  main-1               2024-01-25     smacht          - - - X - -       MEMSLP-9050         Migrate to new ALM Package
+ *  main-2               2024-02-09     smacht          X X - X X -       MEMSLP-8160         Support single block communication interfaces (MC)
+ *  main-3               2024-02-12     lheuberger      X X - X X -       MEMSLP-8474         Multiblock Job Notifications
+ *  main-3               2024-02-22     oebas           - X X - - -       CIB-3115            migration component with copier
+ *  main-3               2024-03-01     smacht          X X - X X -       MEMSLP-9157         Support multi block communication interfaces (MC)
+ *  main-3               2024-03-04     lheuberger      X X - X X -       MEMSLP-8870         Support init block callback
+ *  0.01.00              -              -               - - - - - -       -                   SemVer release 0.01.00 based on main-3 
+ *  main-4               2024-03-11     smacht          - - X - - -       MEMSLP-8485         Initial Technical Reference
+ *  main-4               2024-03-11     smacht          X - - X X -       MEMSLP-9321         Rework test environment derivation
+ *  main-4               2024-03-15     smacht          - - - X X -       MEMSLP-9345         Get rid of UserMock Problematic
+ *  main-4               2024-03-18     smacht          - - - - X -       MEMSLP-9397         Get rid of hidden arrows in logical design
+ *  main-4               2024-03-25     smacht          X X - X X X       MEMSLP-9375         Align Component with latest Component Template
+ *  main-4               2024-03-25     smacht          X X - X X -       MEMSLP-9319         Improvement of Job Type Concept
+ *  main-4               2024-03-26     smacht          X X X X X -       MEMSLP-9323         Correct Static Code Checks Coverage
+ *  main-4               2024-03-27     smacht          X X - X X -       MEMSLP-9437         Rename Package to "AsrNvMGen2"
+ *  main-5               2024-04-08     smacht          - - X - X -       MEMSLP-9379         Document AUTOSAR Spec Compliance
+ *  main-5               2024-04-26     smacht          X - - X - -       MEMSLP-9597         Get rid of unnecessary Include Dependencies
+ *  main-5               2024-05-06     smacht          X X X X X -       MEMSLP-9511         Check compliance against 23-11
+ *  main-5               2024-05-06     group_433_bot_8918be7e278d67622ccce09cfb7f4951 - - - - - -       CIA-488             Renovate Update config/common digest to fdda146
+ *  main-5               2024-05-16     smacht          - - - X - -       MEMSLP-9504         Add Generation of GenData support
+ *  main-5               2024-05-22     lheuberger      X X X X X -       MEMSLP-9710         Correct integration findings
+ *  main-6               2024-05-27     smacht          X X X X X -       MEMSLP-9277         Safety of Communication Ports
+ *  0.02.00              -              -               - - - - - -       -                   SemVer release 0.02.00 based on main-6 
+ *  main-7               2024-05-29     smacht          X X X X X -       MEMSLP-9410         Safety of partition access in main function
+ *  main-7               2024-06-06     virsrl          X X X X X -       MEMSLP-9170         Data integrity buffer handling cleanup
+ *  main-7               2024-06-25     lheuberger      X X X X X X       MEMSLP-9442         Correct Internal Buffer Handling
+ *  main-7               2024-06-27     smacht          - - - X X -       MEMSLP-6619         Safety Analysis
+ *  main-7               2024-07-01     virmlb          X - X X X -       MEMSLP-9613         Safety of partition API requests
+ *  main-7               2024-07-01     lheuberger      - X - X - -       MEMSLP-9828         Generator: Add error handling for OsRelatedPartitions
+ *  main-7               2024-07-02     smacht          - - - - X -       MEMSLP-9515         DEM/DET Error Handling Concept
+ *  main-7               2024-07-03     smacht          X X - X X -       MEMSLP-9516         Initial VCA Coaching
+ *  main-7               2024-07-17     smacht          X - X - X -       MEMSLP-9804         Safety Manual
+ *  main-8               2024-07-26     smacht          X - - X X -       MEMSLP-9347         MSSV Plugin Implementation
+ *  main-8               2024-08-01     virmlb          X X - X - -       MEMSLP-9806         Finite Execution Time Analysis
+ *  main-8               2024-08-01     lheuberger      X X X X X -       MEMSLP-9342         Support NvMUseBlockIdCheck
+ *  main-8               2024-08-22     lheuberger      - - X - - -       MEMSLP-9377         Cybersecurity Analysis
+ *  main-8               2024-08-28     smacht          X X X X X X       MEMSLP-8379         Error Handling
+ *  0.03.00              -              -               - - - - - -       -                   SemVer release 0.03.00 based on main-8 
+ *  main-9               2024-09-04     smacht          - X X - X -       MEMSLP-8323         Support of NvMBlockLengthCheck which are accessed by NvBlock SW-Cs
+ *  main-10              2024-09-06     smacht          X X X X X -       MEMSLP-8325         Support of NvMAutomaticBlockLength which are accessed by NvBlock SW-Cs
+ *  0.04.00              -              -               - - - - - -       -                   SemVer release 0.04.00 based on main-10 
+ *  main-11              2024-09-13     smacht          X - - X X -       MEMSLP-9344         Safety Coaching
+ *  main-11              2024-09-17     smacht          X X - X X -       ESCAN00118187       NVM01078 validation error shown: OsApplication must reference a partition
+ *  1.00.00              -              -               - - - - - -       -                   SemVer release 1.00.00 based on main-11 
+ *  main-12              2024-09-18     virmlb          X X X X X -       MEMSLP-9976         Make SingleBlockCallback invocation switchable for MultiBlockJobs
+ *  main-12              2024-09-20     smacht          - - X - - -       MEMSLP-9834         Improve MultiPartition Documentation
+ *  main-12              2024-09-26     virsrl          - - X - X -       MEMSLP-9949         Improve Documentation
+ *  main-12              2024-10-01     virsrl          - X - - - -       MEMSLP-10308        Provide Multiple SWC Interfaces
+ *  main-13              2024-10-09     smacht          - - - - X -       MEMSLP-10198        Dynamic Configuration Handling Concept
+ *  main-13              2024-10-15     virsrl          - - - X X -       MEMSLP-10155        GlobalUtilityLib Mocking
+ *  main-13              2024-10-18     smacht          X X - X - -       MEMSLP-10267        Get rid of brackets around values of defines
+ *  main-13              2024-10-21     smacht          X - - X - -       MEMSLP-9802         Initialize local variables at definition
+ *  main-13              2024-10-21     lheuberger      X X X X X -       MEMSLP-8391         Support NvM InvalidateNvBlock Service
+ *  1.01.00              -              -               - - - - - -       -                   SemVer release 1.01.00 based on main-13 
+ *  main-14              2024-11-13     virsrl          - - X - - -       MEMSLP-10412        Document Multipartition restriction out of order execution
+ *  main-14              2024-11-13     virmlb          - X - - - -       MEMSLP-8641         RestoreBlockDefaults C/S interface shall always be announced
+ *  main-14              2024-11-15     smacht          X - X X X -       MEMSLP-10324        Adjust multipartition multiblock job config block handling
+ *  main-14              2024-11-18     virsrl          - - - - X -       MEMSLP-10331        ACTS for Configuration Derivation
+ *  main-14              2024-11-18     lheuberger      X - X X X -       MEMSLP-8013         Implement explicit recovery
+ *  main-14              2024-11-19     virmlb          X X X X X -       MEMSLP-8457         Support EraseNvBlock Service
+ *  1.02.00              -              -               - - - - - -       -                   SemVer release 1.02.00 based on main-14 
+ *  main-15              2024-11-29     virsrl          X X - X X -       MEMSLP-10459        Detect Missing const DUMMY_STATEMENTS
+ *  main-15              2024-12-18     virsrl          - - - - X -       MEMSLP-10692        update user spec fulfilment report
+ *  main-15              2024-12-18     lheuberger      X X X X X -       MEMSLP-8162         Dynamic Configuration handling
+ *  1.03.00              -              -               - - - - - -       -                   SemVer release 1.03.00 based on main-15 
+ *  main-16              2025-01-15     smacht          X X X X X X       MEMSLP-10638        Switch to ESF-Config
+ *  main-17              2025-01-17     virsrl          X X X X X -       MEMSLP-8714         Improve block ID derivation
+ *  main-17              2025-01-17     smacht          X X - - - -       ESCAN00118958       Update CSL to 21.02.00
+ *  1.04.00              -              -               - - - - - -       -                   SemVer release 1.04.00 based on main-17 
+ *  main-18              2025-01-27     smacht          X X X X X -       MEMSLP-10578        Support backward compatibility of SWC interfaces
+ *  1.05.00              -              -               - - - - - -       -                   SemVer release 1.05.00 based on main-18 
+ *  main-19              2025-01-29     lheuberger      X X X X X -       MEMSLP-10580        Retrieval of config id via callback
+ *  main-19              2025-01-30     lheuberger      - - - X X -       MEMSLP-10451        Add Initialization of Explicit Sync Callbacks in Det API Unit tests
+ *  main-19              2025-02-06     lheuberger      X - X - - -       MEMSLP-10733        Evaluate safety check findings
+ *  main-19              2025-02-07     virsrl          - - - - X -       MEMSLP-8389         Concept: Support Block Write Protection
+ *  main-19              2025-02-11     smacht          X X - X - -       MEMSLP-10582        RTE Type Header Support for Multipartition Use Case
+ *  1.06.00              -              -               - - - - - -       -                   SemVer release 1.06.00 based on main-19 
+ *  main-20              2025-02-13     virsrl          X X - X - -       MEMSLP-11099        fix CCC job
+ *  1.06.01              -              -               - - - - - -       -                   SemVer release 1.06.01 based on main-20 
+ *  main-21              2025-02-14     smacht          X X - X - -       MEMSLP-11121        Fix Forward Declaration of RTE specific callbacks generation
+ *  1.06.02              -              -               - - - - - -       -                   SemVer release 1.06.02 based on main-21 
+ *  main-22              2025-02-20     virsrl          - X - X - -       MEMSLP-10705        Reduce AutoSolvingAction Events for DeviceBlockLength Validator
+ *  main-22              2025-03-04     lheuberger      X X X X X -       MEMSLP-10861        Support current job mode callback
+ *  1.07.00              -              -               - - - - - -       -                   SemVer release 1.07.00 based on main-22 
+ *  main-23              2025-03-11     smacht          - X - - - -       ESCAN00119518       NvM_MainFunctionMaster() not shown in schedulable entities
+ *  main-23              2025-03-11     smacht          X X - X - -       ESCAN00119519       SWC view not in sync with configuration change
+ *  1.07.01              -              -               - - - - - -       -                   SemVer release 1.07.01 based on main-23 
+ *  main-24              2025-03-24     smacht          X X X X X -       MEMSLP-10881        Support SetBlockLock API
+ *  1.08.00              -              -               - - - - - -       -                   SemVer release 1.08.00 based on main-24 
+ *  main-25              2025-04-02     smacht          X X X X X -       MEMSLP-11348        Generate main function aliases per partition
+ *  1.09.00              -              -               - - - - - -       -                   SemVer release 1.09.00 based on main-25 
+ *  main-26              2025-04-22     smacht          X X X X X -       MEMSLP-11319        Data Integrtiy Block Id Check uses wrong block id
+ *  2.00.00              -              -               - - - - - -       -                   SemVer release 2.00.00 based on main-26 
+ *  main-27              2025-05-06     smacht          X X X X X -       MEMSLP-10911        Support Block Write Protection
+ *  2.01.00              -              -               - - - - - -       -                   SemVer release 2.01.00 based on main-27 
+ *  main-28              2025-05-12     smacht          - - - - - -       ESCAN00119888       MSSV check fails for 'mssv.set' file
+ *  main-28              2025-05-20     virsrl          X X - X - -       MEMSLP-10532        CFG6 Migration
+ *  2.02.00              -              -               - - - - - -       -                   SemVer release 2.02.00 based on main-28 
+ *  main-29              2025-05-21     smacht          X X X X X -       MEMSLP-11352        Improve multipartition startup integration
+ *  2.03.00              -              -               - - - - - -       -                   SemVer release 2.03.00 based on main-29 
+ *  main-30              2025-05-22     lheuberger      X X - - - -       ESCAN00119558       Wrong memory sections for local const lead to linker error
+ *  2.03.01              -              -               - - - - - -       -                   SemVer release 2.03.01 based on main-30 
+ *  main-31              2025-06-02     virsrl          X X - X - -       ESCAN00120116       Add MSSV switch to differentiate between NvM and NvMGen2
+ *  2.03.02              -              -               - - - - - -       -                   SemVer release 2.03.02 based on main-31 
+ *  main-32              2025-06-04     lheuberger      X X X X X -       MEMSLP-11663        Support NvMDataIntegrityIntBuffer
+ *  main-32              2025-06-11     virsrl          - - - X X -       MEMSLP-11214        Fix TestSummary Report
+ *  main-32              2025-06-17     smacht          X X X X X -       MEMSLP-8459         Skip unnecessary reading of valid data during NvM_ReadAll (reset scenarios)
+ *  main-32              2025-06-27     smacht          - - X - - -       MEMSLP-11305        Improve TechRef for config id derivation
+ *  main-32              2025-06-30     lheuberger      - - X - X -       MEMSLP-10320        Map GetErrorStatus API to CREQ with allocated TSR
+ *  main-32              2025-07-01     smacht          X X X X - -       MEMSLP-11194        Support configurable background task
+ *  2.04.00              -              -               - - - - - -       -                   SemVer release 2.04.00 based on main-32 
+ *  main-33              2025-07-08     lheuberger      - - X - - -       MEMSLP-11605        Add caution box in techref regarding memory mapping
+ *  main-33              2025-07-22     d4scherer       X - - X X -       MEMSLP-11751        Change FIFO queue to linked list
+ *  main-33              2025-07-28     virsrl          X X - X X -       MEMSLP-11759        Enqueue background CRC calculation tasks
+ *  main-33              2025-07-28     lheuberger      - - - - X -       MEMSLP-11952        Concept Support background CRC calculation
+ *  main-33              2025-08-22     lheuberger      X X X X X -       MEMSLP-11757        Support background CRC calculation
+ *  main-33              2025-08-28     lheuberger      X X X X X -       MEMMAN-11898        Support Callback Callout for Background Calculation
+ *  main-33              2025-09-09     d4scherer       X X X X X -       MEMSLP-8383         Support job prioritization
+ *  main-33              2025-09-11     lheuberger      X X X X X -       MEMMAN-12147        Skip reading of valid data
+ *  2.05.00              -              -               - - - - - -       -                   SemVer release 2.05.00 based on main-33 
+ *  main-34              2025-09-30     twagenpfeil     X - - X X -       MEMMAN-12181        Update MSSV test specification
+ *  main-34              2025-10-02     d4scherer       X - X X X -       MEMMAN-12152        Support Job Prioritization in Multipartiton Usage Scenario
+ *  main-34              2025-10-09     virsrl          X X - X - -       ESCAN00121016       DataInstanceMultiplication
+ *  2.05.01              -              -               - - - - - -       -                   SemVer release 2.05.01 based on main-34 
+ *  main-35              2025-10-23     lheuberger      X X X X X -       MEMMAN-11929        Align Crc Mechanism to Legacy NvM
+ *  3.00.00              -              -               - - - - - -       -                   SemVer release 3.00.00 based on main-35 
+ *  main-36              2025-10-27     twagenpfeil     X X - X X -       ESCAN00121228       Data Corruption in MultiPartition use case
+ *  3.00.01              -              -               - - - - - -       -                   SemVer release 3.00.01 based on main-36 
+ *  main-37              2025-10-28     d4scherer       X X X X X -       MEMMAN-9243         Support single block job cancellation
+ *  3.01.00              -              -               - - - - - -       -                   SemVer release 3.01.00 based on main-37 
+ *  main-38              2025-10-31     twagenpfeil     - - - - - -       MEMMAN-12216        Disable Generator Coverage in Quality Check
+ *  main-38              2025-11-01     virsrl          - - - - X -       MEMMAN-12405        Update project settings
+ *  main-38              2025-11-06     smacht          X X X X - -       ESCAN00121211       Compiler error Invalid bit-field size for base type
+ *  3.01.01              -              -               - - - - - -       -                   SemVer release 3.01.01 based on main-38 
+ *  main-39              2025-11-17     twagenpfeil     X X X X X -       MEMMAN-12445        Support ValidateAll
+ *  3.02.00              -              -               - - - - - -       -                   SemVer release 3.02.00 based on main-39 
+ *  main-40              2025-11-25     lheuberger      X - - X X -       MEMMAN-11587        Dem Error Reporting of redundant blocks
+ *  main-40              2025-11-26     lheuberger      - - - - X -       MEMMAN-12575        Fix Trace Findings in Component Overview
+ *  main-40              2025-12-01     lheuberger      X X X X X -       MEMMAN-12526        Update TechRef Feature description and compliance chapter
+ *  3.03.00              -              -               - - - - - -       -                   SemVer release 3.03.00 based on main-40 
+ *  main-41              2025-12-16     twagenpfeil     X X - X X -       MEMMAN-12665        Restructure Architecture according to new Stack Concept
+ *  main-41              2026-01-08     lheuberger      - - - - X -       MEMMAN-12683        Concept MAC handling
+ *  main-41              2026-01-15     d4scherer       - X X X - -       MEMMAN-12502        Extend Mainfunction timing triggers
+ *  main-41              2026-01-30     d4scherer       X X X X X -       MEMMAN-12684        Implement Extended Single/Init Block Callback
+ *  3.04.00              -              -               - - - - - -       -                   SemVer release 3.04.00 based on main-41 
+ *  main-42              2026-02-11     virwea          X X X X X -       MEMMAN-12751        Support project without OS
+ *  main-42              2026-02-13     d4scherer       X X X X X X       MEMMAN-8385         Support Write Retries
+ *  3.05.00              -              -               - - - - - -       -                   SemVer release 3.05.00 based on main-42 
+ *  main-43              2026-02-24     lheuberger      X X X X X -       MEMMAN-8387         Skip writing of unchanged data
+ *  main-43              2026-03-05     twagenpfeil     X X X X X -       MEMMAN-12681        Finalize immediate block job handling feature
+ *  main-43              2026-03-06     lheuberger      X X X X X -       MEMMAN-12962        Mac Feature Branch merge
+ *  3.06.00              -              -               - - - - - -       -                   SemVer release 3.06.00 based on main-43 
+ *  main-44              2026-03-16     twagenpfeil     X X - X - -       ESCAN00122648       Csm.h header always included beside no CSM available in project
+ *  3.06.01              -              -               - - - - - -       -                   SemVer release 3.06.01 based on main-44 
+ *  main-45              2026-03-18     smacht          - - - - X -       MEMMAN-7310         Concept Block ID and Data Index in MAC
+ *  main-45              2026-03-19     lheuberger      X X X X X -       MEMMAN-12569        Improve DEM Multipartition description in techref
+ *  3.06.02              -              -               - - - - - -       -                   SemVer release 3.06.02 based on main-45 
+ *********************************************************************************************************************/

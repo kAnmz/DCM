@@ -1,0 +1,6 @@
+###############################################################################
+# Makefile.DEVM.part.defines
+# Source - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -#
+SRC_DIR += $(SWC_DIR)/DEVM/Sources
+# Header - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -#
+INCLUDES += $(addprefix -I, $(SWC_DIR)/DEVM/PublicInt)

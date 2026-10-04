@@ -1,0 +1,8 @@
+###############################################################################
+# Makefile.RSAM.part.defines
+# Source - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -#
+SRC_DIR += $(SWC_DIR)/RSAM/Sources
+SRC_DIR += $(SWC_DIR)/RSAM/Lib/lib_src
+# Header - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -#
+INCLUDES += $(addprefix -I, $(SWC_DIR)/RSAM/PublicInt)
+INCLUDES += $(addprefix -I, $(SWC_DIR)/RSAM/Lib/lib_include)

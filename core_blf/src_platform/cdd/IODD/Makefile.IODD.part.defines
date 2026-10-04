@@ -1,0 +1,6 @@
+###############################################################################
+# Makefile.IODD.part.defines
+# Source - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -#
+SRC_DIR += $(CDD_DIR)/IODD/Sources
+# Header - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -#
+INCLUDES += $(addprefix -I, $(CDD_DIR)/IODD/PublicInt)

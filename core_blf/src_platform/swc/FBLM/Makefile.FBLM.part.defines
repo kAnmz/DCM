@@ -1,0 +1,6 @@
+###############################################################################
+# Makefile.FBLM.part.defines
+# Source - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -#
+SRC_DIR += $(SWC_DIR)/FBLM/Sources
+# Header - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -#
+INCLUDES += $(addprefix -I, $(SWC_DIR)/FBLM/PublicInt)

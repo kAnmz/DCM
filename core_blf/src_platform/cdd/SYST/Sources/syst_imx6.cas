@@ -1,0 +1,329 @@
+/******************************************************************************/
+/*@FILE_NAME          : syst_imx6.cas                                         */
+/*@FILE_PURPOSE       : general purpose assembler functions                   */
+/*@FILE_CREATED_BY    : N.Bigeard                                             */
+/*@FILE_CREATION_DATE : 05/07/2011                                            */
+/*@FILE_LANGUAGE      : ANSI C                                                */
+/*@FILE_MPROC_TYPE    : IMX6x                                                 */
+/************************************** (C) Copyright 2011 Magneti Marelli ****/
+
+#if defined(__FSL_IMX6x__)
+
+/*______ I N C L U D E - F I L E S ___________________________________________*/
+
+
+#include "syst.h"
+
+#if defined( SYST_SPY_UART_USED) && defined(C_COMP_GHS_ARM)
+#include <stdio.h>
+#include <arm_ghs.h>
+#endif /* SYST_SPY_UART_USED && C_COMP_GHS_ARM  */
+
+#include "targ.h"
+
+
+/*______ L O C A L - D E F I N E S ___________________________________________*/
+
+/* a prefetch distance of 4 cache-lines works best experimentally */
+#define Syst_CACHE_LINE_SIZE     64
+#define Syst_PREFETCH_DISTANCE   (Syst_CACHE_LINE_SIZE*4)
+
+/*______ L O C A L - M A C R O S _____________________________________________*/
+
+/*______ L O C A L - T Y P E S _______________________________________________*/
+
+/*______ I M P O R T - G L O B A L ___________________________________________*/
+
+/*______ I M P O R T - P R I V A T E _________________________________________*/
+
+/*______ P R I V A T E - F U N C T I O N S - P R O T O T Y P E S _____________*/
+
+/*______ L O C A L - F U N C T I O N S - P R O T O T Y P E S _________________*/
+
+/*______ P U B L I C - D A T A _______________________________________________*/
+
+/*______ P R I V A T E - D A T A _____________________________________________*/
+
+/*______ L O C A L - D A T A _________________________________________________*/
+
+/*______ P U B L I C - F U N C T I O N S _____________________________________*/
+
+
+#ifndef SYST_DEBUG_RESET
+/*----------------------------------------------------------------------------*/
+/* Name : SYST_Reset()                                                        */
+/* Role : Reset the system                                                    */
+/* Interface : -                                                              */
+/* Pre-condition : -                                                          */
+/* Constraints : -                                                            */
+/* Behavior :                                                                 */
+/*   DO                                                                       */
+/*     [Enter an endless loop]                                                */
+/*   OD                                                                       */
+/*----------------------------------------------------------------------------*/
+void SYST_Reset(void)
+{
+  #if defined(SYST_SPY_UART_USED) && defined(C_COMP_GHS_ARM)
+  ulong returnAddress;
+  ubyte i;
+
+  returnAddress = (ulong) (__builtin_return_address(0));
+  printf ("SYST_Reset : %x\n", returnAddress);
+  fflush(stdout);
+  
+  /* Wait 10ms to send all the caracters */
+  for (i=0; i < 100; i++)
+  {
+    SYST_Wait(SYST_100uS);
+  }
+  #endif /* SYST_SPY_UART_USED && C_COMP_GHS_ARM  */
+
+  /* Generate an immediate internal software reset */
+  /* If while(1) is not present, the cluster doesn't start */
+  
+  while(1)                        
+  {                               
+    __NOP__;                      
+    __NOP__;                      
+    __NOP__;                      
+    __NOP__;                     
+    TARG_WriteShort(WDOG1_WCR, 0); 
+  }
+}
+#endif /* SYST_DEBUG_RESET */
+
+
+#ifdef C_COMP_GHS_ARM
+/*----------------------------------------------------------------------------*/
+/*Name : SYST_Memset32BitsOptim                                               */
+/*Role : Memset optimized for ARM cortex A8. (using stm instructions)         */
+/*Interface :                                                                 */
+/*   IN : void * dst  : Destination address                                   */
+/*   IN : ulong value : Value to be set                                       */
+/*   IN : ulong size  : Size to be set (in 32bits words)                      */
+/*  OUT : -                                                                   */
+/*Pre-condition : -                                                           */
+/*Constraints :   -                                                           */
+/*Behavior:       -                                                           */
+/*----------------------------------------------------------------------------*/
+#pragma asm
+        .section ".text"
+        .nothumb
+        .align 4
+        .global SYST_Memset32BitsOptim
+        ;; r0 = dst, r1 = value, r2 = size 
+SYST_Memset32BitsOptim:
+        cmp         r2, #1
+        ;; store 1 word if size == 1
+        streq       r1, [r0], #4
+        bxeq        lr
+
+        ;; if size greater than 4, jump to memset32_big
+        cmp         r2, #4
+        bgt         memset32_big
+        
+        ;; return if size == 0
+        cmp         r2, #0
+        bxeq        lr
+        
+memset32_small:
+        ;; store up to 4 words
+        str         r1, [r0], #4
+        subs        r2, r2, #1
+        bne         memset32_small
+        bx          lr     
+
+memset32_big :
+        ;; Multiply count by 4 - go from the number of 32-bit words to
+        ;; the number of bytes desired.
+        mov         r2, r2, lsl #2
+
+        ;; Store lr and ip in stack (ip is known as temporal register (r12), but not sure compilator manage it)
+        stmfd       sp!, {ip, lr}
+        mov         ip, r1
+        mov         lr, r1
+
+        ;; Try to align the destination to a cache line. Assume 32
+        ;; byte (8 word) cache lines, it's the common case. 
+        rsb         r3, r0, #0
+        ands        r3, r3, #0x1C
+        beq         memset32_aligned32
+        cmp         r3, r2
+        andhi       r3, r2, #0x1C
+        sub         r2, r2, r3
+
+        ;; (Optionally) write any unaligned leading bytes.
+        ;; (0-28 bytes, length in r3)
+        movs        r3, r3, lsl #28
+        stmcsia     r0!, {r1, lr}
+        stmcsia     r0!, {r1, lr}
+        stmmiia     r0!, {r1, lr}
+        movs        r3, r3, lsl #2
+        strcs       r1, [r0], #4
+
+        ;; Now quickly loop through the cache-aligned data.
+memset32_aligned32:
+        mov         r3, r1
+1:      subs        r2, r2, #32
+        stmhsia     r0!, {r1,r3,ip,lr}
+        stmhsia     r0!, {r1,r3,ip,lr}
+        bhs         1b
+        add         r2, r2, #32
+
+        ;; (Optionally) store any remaining trailing bytes.
+        ;; (0-30 bytes, length in r2)
+        movs        r2, r2, lsl #28
+        stmcsia     r0!, {r1,r3,ip,lr}
+        stmmiia     r0!, {r1,lr}
+        movs        r2, r2, lsl #2
+        strcs       r1, [r0], #4
+        strmih      lr, [r0], #2
+
+        ;; Restore lr and ip in stack and return
+        ldmfd       sp!, {ip, pc}        
+        
+        
+#pragma endasm
+
+
+/*----------------------------------------------------------------------------*/
+/*Name : SYST_MemcpyOptim                                                     */
+/*Role : Memcpy optimized for ARM cortex A8. It used VFP-NEON load and store  */
+/*       instructions, and Preload instruction.                               */
+/*Interface :                                                                 */
+/*   IN : void* dst    : Destination address                                  */
+/*   IN : void* src    : Source address                                       */
+/*   IN : ulong size   : Size to be copied (in bytes)                         */
+/*  OUT : -                                                                   */
+/*Pre-condition : -                                                           */
+/*Constraints :   For small sizes < 64, performance is better with memcpy     */
+/*Behavior:       -                                                           */
+/*----------------------------------------------------------------------------*/
+#pragma asm
+        .section ".text"
+        .nothumb
+        .align 4
+        .global SYST_MemcpyOptim
+        ;; r0 = dst, r1 = src, r2 = size 
+        
+SYST_MemcpyOptim:
+        ;; Store lr and ip in stack (ip is known as temporal register (r12), but not sure compilator manage it)
+        stmfd       sp!, {ip, lr}
+
+        ;; start preloading as early as possible
+        pld         [r1, #(Syst_CACHE_LINE_SIZE*0)]
+        pld         [r1, #(Syst_CACHE_LINE_SIZE*1)]
+
+        ;; do we have at least 16-bytes to copy (needed for alignment below)
+        cmp         r2, #16
+        blo         Label_15
+
+        ;; align destination to half cache-line for the write-buffer 
+        rsb         r3, r0, #0
+        ands        r3, r3, #0xF
+        beq         Label_00
+
+        ;; copy up to 15-bytes (count in r3)
+        sub         r2, r2, r3
+        movs        ip, r3, lsl #31
+        ldrmib      lr, [r1], #1
+        strmib      lr, [r0], #1
+        ldrcsb      ip, [r1], #1
+        ldrcsb      lr, [r1], #1
+        strcsb      ip, [r0], #1
+        strcsb      lr, [r0], #1
+        movs        ip, r3, lsl #29
+        bge         Label_01
+        ;; copies 4 bytes, destination 32-bits aligned
+        vld4.8      {d0[0], d1[0], d2[0], d3[0]}, [r1]!
+        vst4.8      {d0[0], d1[0], d2[0], d3[0]}, [r0, :32]!
+Label_01:      
+        bcc         Label_02
+        ;; copies 8 bytes, destination 64-bits aligned
+        vld1.8      {d0}, [r1]!
+        vst1.8      {d0}, [r0, :64]!
+        
+Label_02:
+        ;; preload immediately the next cache line, which we may need
+Label_00:  
+        pld         [r1, #(Syst_CACHE_LINE_SIZE*0)]
+        pld         [r1, #(Syst_CACHE_LINE_SIZE*1)]
+
+        ;; make sure we have at least 64 bytes to copy
+        subs        r2, r2, #64
+        blo         Label_12
+
+        ;; preload all the cache lines we need.
+        ;; NOTE: the number of pld below depends on Syst_PREFETCH_DISTANCE,
+        ;; ideally would would increase the distance in the main loop to
+        ;; avoid the goofy code below. In practice this doesn't seem to make
+        ;; a big difference.
+        pld         [r1, #(Syst_CACHE_LINE_SIZE*2)]
+        pld         [r1, #(Syst_CACHE_LINE_SIZE*3)]
+        pld         [r1, #(Syst_PREFETCH_DISTANCE)]
+
+Label_11:      
+       ;; The main loop copies 64 bytes at a time
+        vld1.8      {d0  - d3},   [r1]!
+        vld1.8      {d4  - d7},   [r1]!
+        pld         [r1, #(Syst_PREFETCH_DISTANCE)]
+        subs        r2, r2, #64
+        vst1.8      {d0  - d3},   [r0, :128]!
+        vst1.8      {d4  - d7},   [r0, :128]!
+        bhs         Label_11
+
+Label_12:      
+        ;; fix-up the remaining count and make sure we have >= 32 bytes left 
+        add         r2, r2, #64
+        subs        r2, r2, #32
+        blo         Label_14
+
+Label_13:      
+        ;; 32 bytes at a time. These cache lines were already preloaded 
+        vld1.8      {d0 - d3},  [r1]!
+        subs        r2, r2, #32
+        vst1.8      {d0 - d3},  [r0, :128]!
+        bhs         Label_13
+
+Label_14:      
+        ;; less than 32 left
+        add         r2, r2, #32
+        tst         r2, #0x10
+        beq         Label_15
+        ;; copies 16 bytes, 128-bits aligned
+        vld1.8      {d0, d1}, [r1]!
+        vst1.8      {d0, d1}, [r0, :128]!
+
+Label_15:      
+        ;; copy up to 15-bytes (count in r2) 
+        movs        ip, r2, lsl #29
+        bcc         Label_21
+        vld1.8      {d0}, [r1]!
+        vst1.8      {d0}, [r0]!
+Label_21:      
+        bge         Label_22
+        vld4.8      {d0[0], d1[0], d2[0], d3[0]}, [r1]!
+        vst4.8      {d0[0], d1[0], d2[0], d3[0]}, [r0]!
+Label_22:
+        movs        ip, r2, lsl #31
+        ldrmib      r3, [r1], #1
+        ldrcsb      ip, [r1], #1
+        ldrcsb      lr, [r1], #1
+        strmib      r3, [r0], #1
+        strcsb      ip, [r0], #1
+        strcsb      lr, [r0], #1
+
+        ldmfd       sp!, {ip, pc}
+#pragma endasm
+
+
+#endif /*  C_COMP_GHS_ARM */
+
+#endif /* __FSL_IMX6x__ */
+
+/*______ P R I V A T E - F U N C T I O N S ___________________________________*/
+
+/*______ L O C A L - F U N C T I O N S _______________________________________*/
+
+/*______ E N D _____ (syst_imx6.cas) _________________________________________*/
+

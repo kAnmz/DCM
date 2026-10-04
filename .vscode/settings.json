@@ -1,0 +1,21 @@
+{
+    "cmake.configureSettings": {
+        "CMAKE_TOOLCHAIN_FILE": "${workspaceFolder}\\cmake\\common\\toolchain.cmake",
+        "CMAKE_MAKE_PROGRAM": "${workspaceFolder}\\cmake\\cmake_bin\\bin\\ninja.exe"
+    },
+    "cmake.generator": "Ninja",
+    "cmake.parallelJobs": 20,
+    "cmake.cmakePath": "${workspaceFolder}\\cmake\\cmake_bin\\bin\\cmake.exe",
+    "files.associations": {
+        "*.h": "c"
+    },
+    "cmake.sourceDirectory": [
+        "${workspaceFolder}\\cmake\\BLF_DDM",
+        "${workspaceFolder}\\cmake\\BLF_PDM",
+        "${workspaceFolder}\\cmake\\BLF_RLDM",
+        "${workspaceFolder}\\cmake\\BLF_RRDM",
+        "${workspaceFolder}\\cmake\\Flash_Driver",
+        "${workspaceFolder}\\cmake\\SWP1",
+    ],
+    "C_Cpp.default.compileCommands": "${workspaceFolder}\\cmake\\DDM\\build\\compile_commands.json",
+}
