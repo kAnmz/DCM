@@ -1,0 +1,32 @@
+{
+  "variant": "DCU_FL",
+  "slot_size": 64,
+  "region_size": 4096,
+  "merge_offset": "0x0005D000",
+  "items": [
+    {
+      "name": "sbl_diag_db_part_number",
+      "slot": 56,
+      "encoding": "ascii",
+      "value": "EXAMPLE1"
+    },
+    {
+      "name": "sbl_sw_version_number",
+      "slot": 57,
+      "encoding": "ascii",
+      "value": "V1.0.0"
+    },
+    {
+      "name": "boot_version",
+      "slot": 62,
+      "encoding": "hex",
+      "value": "010203"
+    },
+    {
+      "name": "boot_end_flag",
+      "slot": 63,
+      "encoding": "hex",
+      "value": "454E"
+    }
+  ]
+}

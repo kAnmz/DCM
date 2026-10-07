@@ -11,25 +11,12 @@
 #include "vers_config.h"
 #include "iodc.h"
 /*______ L O C A L - D E F I N E S ___________________________________________*/
-#define Vers_BootInfoSize         0x30
 
 /*______ L O C A L - T Y P E S _______________________________________________*/
 
 
 /*______ G L O B A L - D A T A _______________________________________________*/
-#pragma ghs section rodata=".M0BootVers"
-#pragma ghs startdata
-volatile const ubyte VERS_BootInfo[Vers_BootInfoSize] =
-{
-  0x0B,   /* Bootloader abbreviation*/
-  0x07,   /* Bootloader Version - High version (6.0)*/
-  0x00,   /* Bootloader Version - Low version (6.0)*/
-
-  /*Reserver 45byte info*/
-};
-
-#pragma ghs enddata
-#pragma ghs section
+/* VERS_BootInfo moved to Variant_Data[VARIANT_DATA_BOOT_VESRION] (variant_config.c) */
 
 /*______ P R I V A T E - D A T A _____________________________________________*/
 

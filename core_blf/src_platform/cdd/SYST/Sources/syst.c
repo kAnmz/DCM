@@ -321,7 +321,7 @@ __NO_INIT__ SYST_SleepKey_t SYST_SLEEP_KEY_RAM;
 #if 0
 #if defined(C_COMP_GHS_TX49) || defined(C_COMP_GHS_V850) || defined(C_COMP_GHS_RH850) || defined(__CY_TV2__) ||(defined(C_COMP_GHS_ARM) && (!defined(__GHOS__)))
 #pragma ghs startdata
-#pragma ghs section rodata=".ApplEndFlag"
+/* BLF end flag moved to Variant_Data[VARIANT_DATA_BOOT_END_FLAG], see variant_config.c */
 #endif /* C_COMP_GHS_TX49 || C_COMP_GHS_V850 || (C_COMP_GHS_ARM && !__GHOS__) */
 __ROOT__ const ubyte Syst_End[] = {'e','n','d'};
 #if defined(C_COMP_GHS_TX49) || defined(C_COMP_GHS_V850) || defined(C_COMP_GHS_RH850) || defined(__CY_TV2__) || (defined(C_COMP_GHS_ARM) && (!defined(__GHOS__)))

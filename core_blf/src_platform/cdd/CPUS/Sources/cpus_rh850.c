@@ -87,9 +87,6 @@ typedef enum
 extern char __ghsbegin_RAMCODERom[], __ghsend_RAMCODERom[];
 extern char __ghsbegin_RAMCODE[], __ghsend_RAMCODE[];
 
-extern char __ghsbegin_ApplEndFlag[], __ghsend_ApplEndFlag[];
-extern char __ghsbegin_romApplEndFlag[], __ghsend_romApplEndFlag[];
-
 #if !defined(__FBL_UPDATER__)
 extern ubyte __ghsbegin_CONST_SW_ID[1], __ghsend_CONST_SW_ID[];
 extern char __ghsbegin_romCONST_SW_ID[], __ghsend_romCONST_SW_ID[];
@@ -128,20 +125,6 @@ void CPUS_InitRam(void)
   {
     *RamStart = *RomStart;
   }
-
-#ifndef __ENABLE_ICUS__
-  /*copy ApplEndFlag*/
-  RomStart = __ghsbegin_romApplEndFlag;
-  RomEnd = __ghsend_romApplEndFlag;
-
-  RamStart = __ghsbegin_ApplEndFlag;
-  RamEnd = __ghsend_ApplEndFlag;
-
-  for(;(RomStart <= RomEnd) && (RamStart <= RamEnd);RomStart ++,RamStart++)
-  {
-    *RamStart = *RomStart;
-  }
-#endif
 
 #if !defined(__FBL_UPDATER__)
   /*copy CONST_SW_ID*/

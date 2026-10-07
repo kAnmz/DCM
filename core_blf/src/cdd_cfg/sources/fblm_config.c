@@ -27,6 +27,7 @@
 #include "mcwdt_config.h"
 #include "wdfs_config_dynamic.h"
 #include "vers_config.h"
+#include "variant_config.h"
 #include "cy_canfd.h"
 #include "fblm_main.h"
 #include "MemAcc.h"
@@ -141,69 +142,9 @@ uint8_t   flashCode[FlashDrv_BlockSize];
 uint8_t   FBLM_Swp1Code[FBLM_SWP1_SIZE];  /*used to store temp SWP1 data,and then write into NVM */
 # pragma ghs section bss=default
 
-#pragma ghs section rodata=".ApplEndFlag"
-#pragma ghs startdata
-volatile const ubyte M0BOOT_End[2] =
-{
-#if defined(DCU_FL)
-  'F','L'
-#elif defined(DCU_FR)
-  'F','R'
-#elif defined(DCU_RL)
-  'R','L'
-#elif defined(DCU_RR)
-  'R','R'
-#endif
-};
-#pragma ghs enddata
-#pragma ghs section
+/* M0BOOT_End moved to Variant_Data[VARIANT_DATA_BOOT_END_FLAG] (variant_config.c) */
 
-
-// #define  SBL_DIAG_DB_PART_NUMBER          0x66, 0x08, 0x68, 0x35, 0x86, 0x20, 0x20, 0x41  /* '  A' */
-
-// /* DID F124 */
-// #define  SBL_SW_VERSION_NUMBER          0x66, 0x08, 0x11, 0x54, 0x13, 0x00, 0x00
-
-// /* DID F1A1 */
-// #define Diag_PBLDiagDatabasePN 0x66u, 0x08u, 0x68u, 0x35u, 0x88u
-// /* DID F1A5 */
-// #define Diag_PBLSoftDiagDatabasePN 0x66u, 0x08u, 0x68u, 0x35u, 0x68u
-// /* DID F1AA */
-// #define Diag_ECUCoreAsmPN 0x66u, 0x08u, 0x50u, 0x77u, 0x54u
-// /* DID F1AB */
-// #define Diag_ECUDeliAsmPN 0x66u, 0x08u, 0x58u, 0x02u, 0x60u
-
-
-typedef enum {
-    VARIANT_DATA_SBL_DIAG_DB_PART_NUMBER = 56,
-    VARIANT_DATA_SBL_SW_VERSION_NUMBER = 57,
-    VARIANT_DATA_DIAG_PBL_DIAG_DATABASE_PN = 58,
-    VARIANT_DATA_DIAG_PBL_SOFT_DIAG_DATABASE_PN = 59,
-    VARIANT_DATA_DIAG_ECU_CORE_ASM_PN = 60,
-    VARIANT_DATA_DIAG_ECU_DELI_ASM_PN = 61,
-    VARIANT_DATA_BOOT_VESRION = 62,
-    VARIANT_DATA_BOOT_END_FLAG = 63,
-}Variant_Data_Type;
-
-// Variant data slot configuration, reserved totally 4K
-#define VARIANT_SLOT_SIZE  (64U)
-#define VARIANT_SLOT_COUNT (64U)
-
-#pragma ghs section rodata=".variant_data"
-#pragma ghs startdata
-volatile const ubyte Variant_Data[VARIANT_SLOT_COUNT][VARIANT_SLOT_SIZE] =
-{
-    [VARIANT_DATA_SBL_DIAG_DB_PART_NUMBER] = {0},
-    [VARIANT_DATA_SBL_SW_VERSION_NUMBER] = {0},
-    [VARIANT_DATA_DIAG_PBL_DIAG_DATABASE_PN] = {0},
-    [VARIANT_DATA_DIAG_PBL_SOFT_DIAG_DATABASE_PN] = {0},
-    [VARIANT_DATA_DIAG_ECU_CORE_ASM_PN] = {0},
-    [VARIANT_DATA_DIAG_ECU_DELI_ASM_PN] = {0},
-    [VARIANT_DATA_BOOT_VESRION] = {0x0B,0x07,0x00},
-    [VARIANT_DATA_BOOT_END_FLAG] = {'F','L'},
-};
-#pragma ghs enddata
-#pragma ghs section
+/* Diagnostic identifiers moved to variant_config.c / variant_config.h */
 
 #if 0
 #pragma ghs section rodata=".M0AppEndFlag"
@@ -456,20 +397,7 @@ static uint8 Fblm_Signature[256] = {0};
 static boolean StartRsa = FALSE;
 static ulong Fblm_StartAddress = 0u;
 static ulong Fblm_EndAddress = 0u;
-static const uint8 Fblm_F1A2_PN[8u] = {SBL_DIAG_DB_PART_NUMBER};
-static const uint8 Fblm_F124_Ver[7u] = {SBL_SW_VERSION_NUMBER};
-/*F1A1*/
-static const uint8 Diag_PBLDiagDatabasePNData[Diag_PBLDiagDatabasePN_Len] = {Diag_PBLDiagDatabasePN};
-static const uint8 Diag_PBLDiagDatabaseVerData[Diag_PBLDiagDatabaseVer_Len] = {Diag_PBLDiagDatabaseVer};
-/*F1A5*/
-static const uint8 Diag_PBLSoftDatabasePNData[Diag_PBLSoftDiagDatabasePN_Len] = {Diag_PBLSoftDiagDatabasePN};
-static const uint8 Diag_PBLSoftDatabaseVerData[Diag_PBLSoftDiagDatabaseVer_Len] = {Diag_PBLSoftDiagDatabaseVer};
-/*F1AA*/
-static const uint8 Diag_ECUCoreAsmPNData[Diag_ECUCoreAsmPN_Len] = {Diag_ECUCoreAsmPN};
-static const uint8 Diag_ECUCoreAsmVerData[Diag_ECUCoreAsmVer_Len] = {Diag_ECUCoreAsmVer};
-/*F1AB*/
-static const uint8 Diag_ECUDeliAsmPNData[Diag_ECUDeliAsmPN_Len] = {Diag_ECUDeliAsmPN};
-static const uint8 Diag_ECUDeliAsmVerData[Diag_ECUDeliAsmVer_Len] = {Diag_ECUDeliAsmVer};
+/* Diagnostic identifiers are read from Variant_Data, see variant_config.c */
 static uint8 Fblm_WriteSecurityConstantFlag = FALSE;
 static uint8 Fblm_UpdateReprogrammingCounterFlag = FALSE;
 
@@ -1404,7 +1332,7 @@ void Fblm_ReadDataByIdentifier(ubyte *pbDiagData, ushort diagReqDataLen)
             case Fblm_Primary_Bootloader_Version_F1FA:
                 for(index = 0u; index < kDiagRqlDataByIdentifierVersionPrintParameter; index++)
                 {
-                    diagData[2 +index] = VERS_BootInfo[index];
+                    diagData[2 +index] = Variant_Data[VARIANT_DATA_BOOT_VESRION].data[index];
                 }
                 break;
 
@@ -1583,7 +1511,7 @@ void Fblm_ReadDataByIdentifier(ubyte *pbDiagData, ushort diagReqDataLen)
                 {
                     for(index = 0u; index < outIdxAdd - 2u; index++)
                     {
-                        diagData[2u + index] = Fblm_F124_Ver[index];
+                        diagData[2u + index] = Variant_Data[VARIANT_DATA_SBL_SW_VERSION_NUMBER].data[index];
                     }
                 }
                 else
@@ -1597,7 +1525,7 @@ void Fblm_ReadDataByIdentifier(ubyte *pbDiagData, ushort diagReqDataLen)
                 {
                     for(index = 0u; index < outIdxAdd - 2u; index++)
                     {
-                        diagData[2u + index] = Fblm_F1A2_PN[index];
+                        diagData[2u + index] = Variant_Data[VARIANT_DATA_SBL_DIAG_DB_PART_NUMBER].data[index];
                     }
                 }
                 else
@@ -3060,7 +2988,8 @@ static ubyte Fblm_IsM4ApplicationValid(void)
 static ubyte Fblm_IsBootCompatibleWithApp(void)
 {
   ubyte Ret = FblApplInvalid;
-  if((M0BOOT_End[0] == __ghsbegin_M4AppEndFlag[16]) && (M0BOOT_End[1] == __ghsbegin_M4AppEndFlag[17]))
+  if((Variant_Data[VARIANT_DATA_BOOT_END_FLAG].data[0] == __ghsbegin_M4AppEndFlag[16]) &&
+     (Variant_Data[VARIANT_DATA_BOOT_END_FLAG].data[1] == __ghsbegin_M4AppEndFlag[17]))
   {
     Ret = FblApplValid;
   }
@@ -3121,9 +3050,9 @@ static void Fblm_Complete_ECU_Part_Serial_Number_s_PBL_Geely_Did_ED20_Func(uint8
         pData[index] = 0xF1u;
         pData[++index] = 0x24u;
         index++;
-        for (length = 0U; length < sizeof(Fblm_F124_Ver); index++, length++)
+        for (length = 0U; length < Variant_Data[VARIANT_DATA_SBL_SW_VERSION_NUMBER].len; index++, length++)
         {
-            pData[index] = Fblm_F124_Ver[length];
+            pData[index] = Variant_Data[VARIANT_DATA_SBL_SW_VERSION_NUMBER].data[length];
         }
 
         /*F18C Start*/
@@ -3149,9 +3078,9 @@ static void Fblm_Complete_ECU_Part_Serial_Number_s_PBL_Geely_Did_ED20_Func(uint8
         pData[index] = 0xF1u;
         pData[++index] = 0xA2u;
         index++;
-        for (length = 0U; length < sizeof(Fblm_F1A2_PN); index++, length++)
+        for (length = 0U; length < Variant_Data[VARIANT_DATA_SBL_DIAG_DB_PART_NUMBER].len; index++, length++)
         {
-            pData[index] = Fblm_F1A2_PN[length];
+            pData[index] = Variant_Data[VARIANT_DATA_SBL_DIAG_DB_PART_NUMBER].data[length];
         }
 
 		/*F1AA Start*/
@@ -3327,9 +3256,9 @@ static void Fblm_Complete_ECU_Part_Serial_Number_s_Did_EDA0_Func(uint8 *pData)
         pData[index] = 0xF1u;
         pData[++index] = 0x24u;
         index++;
-        for (length = 0U; length < sizeof(Fblm_F124_Ver); index++, length++)
+        for (length = 0U; length < Variant_Data[VARIANT_DATA_SBL_SW_VERSION_NUMBER].len; index++, length++)
         {
-            pData[index] = Fblm_F124_Ver[length];
+            pData[index] = Variant_Data[VARIANT_DATA_SBL_SW_VERSION_NUMBER].data[length];
         }
 
         pData[index] = 0xF1u;
